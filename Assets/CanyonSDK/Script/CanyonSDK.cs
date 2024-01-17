@@ -386,14 +386,9 @@ public class CanyonSDK : MonoBehaviour
             interstitialAd.Destroy();
             interstitialAd = null;
         }
-#if gameanalytics_admob_enabled
-        if (GameAnalytics.Initialized)
-        {
-            AA_AnalyticsManager.Agent.AdEventILDR(adUnitId, interstitialAd);
-            AA_AnalyticsManager.Agent.AdEvent(GAAdAction.Request, GAAdType.Interstitial);
-        }
-#endif
         // Load an interstitial ad
+
+        AA_AnalyticsManager.Agent.AdEvent(GAAdAction.Request, GAAdType.Interstitial);
         InterstitialAd.Load(adUnitId, CreateAdRequest(),
             (InterstitialAd ad, LoadAdError loadError) =>
             {
@@ -418,8 +413,13 @@ public class CanyonSDK : MonoBehaviour
                 PrintStatus("Interstitial ad loaded.");
                 interstitialAd = ad;
                 OnLoad?.Invoke(true);
-                if (GameAnalytics.Initialized) AA_AnalyticsManager.Agent.AdEvent(GAAdAction.Loaded, GAAdType.Interstitial);
-
+#if gameanalytics_admob_enabled
+                if (GameAnalytics.Initialized)
+                {
+                    AA_AnalyticsManager.Agent.AdEventILDR(adUnitId, interstitialAd);
+                    AA_AnalyticsManager.Agent.AdEvent(GAAdAction.Loaded, GAAdType.Interstitial);
+                } 
+#endif
                 ad.OnAdFullScreenContentOpened += () =>
                 {
                     interstitialCallBack?.Invoke();
@@ -728,6 +728,8 @@ public class CanyonSDK : MonoBehaviour
                 }
 
                 PrintStatus("RewardedInterstitial ad loaded. index is ");
+                rewardedInterstitialAd = ad;
+                OnLoad?.Invoke(true);
 #if gameanalytics_admob_enabled
                 if (GameAnalytics.Initialized)
                 {
@@ -735,8 +737,6 @@ public class CanyonSDK : MonoBehaviour
                     AA_AnalyticsManager.Agent.AdEvent(GAAdAction.Loaded, GAAdType.RewardedVideo);
                 }
 #endif
-                rewardedInterstitialAd = ad;
-                OnLoad?.Invoke(true);
                 ad.OnAdFullScreenContentOpened += () =>
                {
                    if (GameAnalytics.Initialized) AA_AnalyticsManager.Agent.AdEvent(GAAdAction.Show, GAAdType.RewardedVideo);

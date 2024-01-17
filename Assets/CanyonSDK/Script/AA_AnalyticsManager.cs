@@ -82,21 +82,24 @@ public class AA_AnalyticsManager : MonoBehaviour
     }
     public void AdEventILDR(string adUnitId,BannerView ad)
     {
-        //GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
     }
     public void AdEventILDR(string adUnitId,InterstitialAd ad)
     {
-        //GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
     }
     public void AdEventILDR(string adUnitId,RewardedAd ad)
     {
-        //GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
     }
     public void AdEventILDR(string adUnitId,RewardedInterstitialAd ad)
     {
-        //GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
     }
-
+    public void DesignEvent(string eventData)
+    {
+        GameAnalytics.NewDesignEvent(eventData);
+    }
 
     #region GAIDs
 
