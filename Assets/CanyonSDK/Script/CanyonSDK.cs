@@ -22,6 +22,7 @@ public class CanyonSDK : MonoBehaviour
     public GameObject adLoadingPanel;
     public bool showBannerInStart;
     public bool useTestIDs;
+    public bool InternetRequired;
     public bool loadNextScene = true;
     public bool removeAd = false;
     public TagForChildDirectedTreatment tagForChild;
@@ -172,13 +173,13 @@ public class CanyonSDK : MonoBehaviour
         if (myGameIds.interstitial && myGameIds.preCacheInterstitial) RequestAndLoadInterstitialAd();
     }
     #region BANNER ADS
-    public void RequestAdaptiveBannerAd(string[] bannerIds, AdSize adSize, AdPosition adPosition)
+    public void RequestAdaptiveBannerAd(string bannerIds, AdSize adSize, AdPosition adPosition)
     {
         if (!myGameIds.adaptiveBanner) return;
         PrintStatus("Requesting Banner ad.");
 
         // These ad units are configured to always serve test ads.
-        string adUnitId = bannerIds[0];
+        string adUnitId = bannerIds;
         if (useTestIDs)
         {
 
@@ -242,13 +243,13 @@ public class CanyonSDK : MonoBehaviour
         // Load a banner ad
         adaptiveBannerView.LoadAd(CreateAdRequest());
     }
-    public void RequestSquareBannerAd(string[] bannerIds, AdSize adSize, AdPosition adPosition)
+    public void RequestSquareBannerAd(string bannerIds, AdSize adSize, AdPosition adPosition)
     {
         if (!myGameIds.squareBanner) return;
         PrintStatus("Requesting Banner ad.");
 
         // These ad units are configured to always serve test ads.
-        string adUnitId = bannerIds[0];
+        string adUnitId = bannerIds;
         if (useTestIDs)
         {
 
@@ -319,7 +320,7 @@ public class CanyonSDK : MonoBehaviour
         {
             return;
         }
-        RequestSquareBannerAd(myGameIds.bannerAdId, AdSize.MediumRectangle, myGameIds.bannerPosition);
+        RequestSquareBannerAd(myGameIds.squareBannerAdId, AdSize.MediumRectangle, myGameIds.squareBannerPosition);
     }
     public void ShowAdoptiveBanner()
     {
@@ -329,7 +330,7 @@ public class CanyonSDK : MonoBehaviour
             return;
         }
         var _adSize = AdSize.GetLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
-        RequestAdaptiveBannerAd(myGameIds.adoptiveBannerAdIds, _adSize, myGameIds.adoptiveBannerPosition);
+        RequestAdaptiveBannerAd(myGameIds.adoptiveBannerAdId, _adSize, myGameIds.adoptiveBannerPosition);
     }
     public void HideAdaptiveBanner()
     {
@@ -369,7 +370,7 @@ public class CanyonSDK : MonoBehaviour
 
         PrintStatus("Requesting Interstitial ad.");
 
-        string adUnitId = myGameIds.interstitialAdIds[0];
+        string adUnitId = myGameIds.interstitialAdId;
         if (useTestIDs)
         {
 #if UNITY_ANDROID
@@ -507,7 +508,7 @@ public class CanyonSDK : MonoBehaviour
     {
         if (!myGameIds.rewarded) return;
         PrintStatus("Requesting Rewarded ad.");
-        string adUnitId = myGameIds.rewardedVideoAdIds[0];
+        string adUnitId = myGameIds.rewardedVideoAdId;
         if (useTestIDs)
         {
 #if UNITY_ANDROID
@@ -691,7 +692,7 @@ public class CanyonSDK : MonoBehaviour
     {
         if (!myGameIds.rewardedInterstitial) return;
         PrintStatus("Requesting RewardedInterstitial ad");
-        string adUnitId = myGameIds.rewardedInterstitialAdIds[0];
+        string adUnitId = myGameIds.rewardedInterstitialAdId;
         if (useTestIDs)
         {
 #if UNITY_ANDROID
@@ -832,16 +833,16 @@ public class IDs
     public bool squareBanner = true;
     public bool interstitial = true, rewarded = true, rewardedInterstitial = true;
     [Header("Set IDs High, Medium, All Prices")]
-    public AdPosition bannerPosition;
-    public string[] bannerAdId;
+    public AdPosition squareBannerPosition;
+    public string squareBannerAdId;
     public AdPosition adoptiveBannerPosition;
-    public string[] adoptiveBannerAdIds;
+    public string adoptiveBannerAdId;
     public bool preCacheInterstitial = true;
-    public string[] interstitialAdIds;
+    public string interstitialAdId;
     public bool preCacheRewarded = true;
-    public string[] rewardedVideoAdIds;
+    public string rewardedVideoAdId;
     public bool preCacheRewardedInterstitial = true;
-    public string[] rewardedInterstitialAdIds;
+    public string rewardedInterstitialAdId;
 }
 [Serializable]
 public class GameLinks

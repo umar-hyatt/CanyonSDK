@@ -57,41 +57,41 @@ public class TestSDK : MonoBehaviour
     {
         if (value.Length <= 1)
         {
-            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.interstitialAdIds[0]);
+            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.interstitialAdId);
         }
-        CanyonSDK.Agent.myGameIds.interstitialAdIds[0] = value;
+        CanyonSDK.Agent.myGameIds.interstitialAdId = value;
     }
     public void OnChangeSquareBannerAdId(string value)
     {
         if (value.Length <= 1)
         {
-            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.bannerAdId[0]);
+            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.squareBannerAdId);
         }
-        CanyonSDK.Agent.myGameIds.bannerAdId[0] = value;
+        CanyonSDK.Agent.myGameIds.squareBannerAdId = value;
     }
     public void OnChangeRewardedAdId(string value)
     {
         if (value.Length <= 1)
         {
-            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.rewardedVideoAdIds[0]);
+            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.rewardedVideoAdId);
         }
-        CanyonSDK.Agent.myGameIds.rewardedVideoAdIds[0] = value;
+        CanyonSDK.Agent.myGameIds.rewardedVideoAdId = value;
     }
     public void OnChangeRewardedInterstitialAdId(string value)
     {
         if (value.Length <= 1)
         {
-            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.rewardedInterstitialAdIds[0]);
+            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.rewardedInterstitialAdId);
         }
-        CanyonSDK.Agent.myGameIds.rewardedInterstitialAdIds[0] = value;
+        CanyonSDK.Agent.myGameIds.rewardedInterstitialAdId = value;
     }
     public void OnChangeAdoptiveBannerAdId(string value)
     {
         if (value.Length <= 1)
         {
-            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.adoptiveBannerAdIds[0]);
+            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.adoptiveBannerAdId);
         }
-        CanyonSDK.Agent.myGameIds.adoptiveBannerAdIds[0] = value;
+        CanyonSDK.Agent.myGameIds.adoptiveBannerAdId = value;
     }
 
     void CopyTextToClipboard(string text)
