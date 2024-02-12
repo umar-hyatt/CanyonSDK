@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 
-[CustomEditor(typeof(CanyonSDK))]
+[CustomEditor(typeof(OmmySDK))]
 public class CanyonSDKEditor : Editor
 {
     SerializedProperty adLoadingPanel;

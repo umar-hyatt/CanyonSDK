@@ -9,22 +9,22 @@ using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
-public class AA_AnalyticsManager : MonoBehaviour
+public class OmmyAnalyticsManager : MonoBehaviour
 {
-    private static AA_AnalyticsManager _instance = null;
+    private static OmmyAnalyticsManager _instance = null;
     
-    static public AA_AnalyticsManager Agent
+    static public OmmyAnalyticsManager Agent
     {
         get
         {
             if (_instance == null)
             {
-                _instance = UnityEngine.Object.FindObjectOfType(typeof(AA_AnalyticsManager)) as AA_AnalyticsManager;
+                _instance = UnityEngine.Object.FindObjectOfType(typeof(OmmyAnalyticsManager)) as OmmyAnalyticsManager;
                 if (_instance == null)
                 {
-                    GameObject obj = new GameObject("AA_AnalyticsManager");
+                    GameObject obj = new GameObject("OmmyAnalyticsManager");
                     DontDestroyOnLoad(obj);
-                    _instance = obj.AddComponent<AA_AnalyticsManager>();
+                    _instance = obj.AddComponent<OmmyAnalyticsManager>();
                 }
             }
             return _instance;
@@ -34,7 +34,7 @@ public class AA_AnalyticsManager : MonoBehaviour
     {
         if(_instance == null)
         {	
-            _instance = this.gameObject.GetComponent<AA_AnalyticsManager>();
+            _instance = this.gameObject.GetComponent<OmmyAnalyticsManager>();
             DontDestroyOnLoad(this);
             Startup();
         }
@@ -111,8 +111,8 @@ public class AA_AnalyticsManager : MonoBehaviour
             GameAnalytics.SettingsGA.RemovePlatformAtIndex(0);
         }
         GameAnalytics.SettingsGA.AddPlatform(RuntimePlatform.Android);
-        GameAnalytics.SettingsGA.UpdateGameKey(0,AA_AnalyticsManager.Agent.gameKey);
-        GameAnalytics.SettingsGA.UpdateSecretKey(0,AA_AnalyticsManager.Agent.secretKey);
+        GameAnalytics.SettingsGA.UpdateGameKey(0,OmmyAnalyticsManager.Agent.gameKey);
+        GameAnalytics.SettingsGA.UpdateSecretKey(0,OmmyAnalyticsManager.Agent.secretKey);
         
         GameAnalytics.SettingsGA.SubmitFpsAverage = true;
         GameAnalytics.SettingsGA.SubmitFpsCritical = true;

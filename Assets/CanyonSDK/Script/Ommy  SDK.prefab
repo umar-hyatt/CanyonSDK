@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8000827440557703456}
   - component: {fileID: 8000827440557703457}
   m_Layer: 0
-  m_Name: Canyon SDK
+  m_Name: Ommy  SDK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
   adLoadingPanel: {fileID: 8000827441378935081}
   showBannerInStart: 1
   useTestIDs: 1
+  InternetRequired: 0
   loadNextScene: 1
   removeAd: 0
   tagForChild: 0
@@ -58,21 +59,16 @@ MonoBehaviour:
     interstitial: 1
     rewarded: 1
     rewardedInterstitial: 1
-    bannerPosition: 4
-    bannerAdId:
-    - ca-app-pub-3940256099942544/6300978111
+    squareBannerPosition: 0
+    squareBannerAdId: 
     adoptiveBannerPosition: 1
-    adoptiveBannerAdIds:
-    - ca-app-pub-3940256099942544/9214589741
+    adoptiveBannerAdId: 
     preCacheInterstitial: 1
-    interstitialAdIds:
-    - ca-app-pub-3940256099942544/1033173712
+    interstitialAdId: 
     preCacheRewarded: 1
-    rewardedVideoAdIds:
-    - ca-app-pub-3940256099942544/5224354917
+    rewardedVideoAdId: 
     preCacheRewardedInterstitial: 1
-    rewardedInterstitialAdIds:
-    - ca-app-pub-3940256099942544/5354046379
+    rewardedInterstitialAdId: 
   Links:
     RateUsLink: 
     MoreGamesLink: 
@@ -84,7 +80,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8000827440557703462}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecbe56220eae3784ca3aded03527e9a5, type: 3}
   m_Name: 

@@ -12,31 +12,31 @@ public class TestSDK : MonoBehaviour
         switch (dropdown.value)
         {
             case 0:
-                CanyonSDK.Agent.ShowRewardedAd();
+                OmmySDK.Agent.ShowRewardedAd();
                 break;
             case 1:
-                CanyonSDK.Agent.ShowInterstitialAd();
+                OmmySDK.Agent.ShowInterstitialAd();
                 break;
             case 2:
-                CanyonSDK.Agent.ShowRewardedInterstitialAd();
+                OmmySDK.Agent.ShowRewardedInterstitialAd();
                 break;
             case 3:
-                CanyonSDK.Agent.ShowAdoptiveBanner();
+                OmmySDK.Agent.ShowAdoptiveBanner();
                 break;
             case 4:
-                CanyonSDK.Agent.HideAdaptiveBanner();
+                OmmySDK.Agent.HideAdaptiveBanner();
                 break;
             case 5:
-                CanyonSDK.Agent.DestroyAdaptiveBannerAd();
+                OmmySDK.Agent.DestroyAdaptiveBannerAd();
                 break;
             case 6:
-                CanyonSDK.Agent.ShowSquareBanner();
+                OmmySDK.Agent.ShowSquareBanner();
                 break;
             case 7:
-                CanyonSDK.Agent.HideSquareBanner();
+                OmmySDK.Agent.HideSquareBanner();
                 break;
             case 8:
-                CanyonSDK.Agent.DestroySquareBannerAd();
+                OmmySDK.Agent.DestroySquareBannerAd();
                 break;
             case 9:
                 //GDPRManager.Agent.ResetConsentState();
@@ -45,53 +45,53 @@ public class TestSDK : MonoBehaviour
     }
     public void SetPreCache(bool value)
     {
-        CanyonSDK.Agent.myGameIds.preCacheInterstitial = value;
-        CanyonSDK.Agent.myGameIds.preCacheRewarded = value;
-        CanyonSDK.Agent.myGameIds.preCacheRewardedInterstitial = value;
+        OmmySDK.Agent.myGameIds.preCacheInterstitial = value;
+        OmmySDK.Agent.myGameIds.preCacheRewarded = value;
+        OmmySDK.Agent.myGameIds.preCacheRewardedInterstitial = value;
     }
     public void OnClickShowInspector()
     {
-        CanyonSDK.Agent.OpenAdInspector();
+        OmmySDK.Agent.OpenAdInspector();
     }
     public void OnChangeInterstitialAdId(string value)
     {
         if (value.Length <= 1)
         {
-            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.interstitialAdId);
+            CopyTextToClipboard(OmmySDK.Agent.myGameIds.interstitialAdId);
         }
-        CanyonSDK.Agent.myGameIds.interstitialAdId = value;
+        OmmySDK.Agent.myGameIds.interstitialAdId = value;
     }
     public void OnChangeSquareBannerAdId(string value)
     {
         if (value.Length <= 1)
         {
-            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.squareBannerAdId);
+            CopyTextToClipboard(OmmySDK.Agent.myGameIds.squareBannerAdId);
         }
-        CanyonSDK.Agent.myGameIds.squareBannerAdId = value;
+        OmmySDK.Agent.myGameIds.squareBannerAdId = value;
     }
     public void OnChangeRewardedAdId(string value)
     {
         if (value.Length <= 1)
         {
-            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.rewardedVideoAdId);
+            CopyTextToClipboard(OmmySDK.Agent.myGameIds.rewardedVideoAdId);
         }
-        CanyonSDK.Agent.myGameIds.rewardedVideoAdId = value;
+        OmmySDK.Agent.myGameIds.rewardedVideoAdId = value;
     }
     public void OnChangeRewardedInterstitialAdId(string value)
     {
         if (value.Length <= 1)
         {
-            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.rewardedInterstitialAdId);
+            CopyTextToClipboard(OmmySDK.Agent.myGameIds.rewardedInterstitialAdId);
         }
-        CanyonSDK.Agent.myGameIds.rewardedInterstitialAdId = value;
+        OmmySDK.Agent.myGameIds.rewardedInterstitialAdId = value;
     }
     public void OnChangeAdoptiveBannerAdId(string value)
     {
         if (value.Length <= 1)
         {
-            CopyTextToClipboard(CanyonSDK.Agent.myGameIds.adoptiveBannerAdId);
+            CopyTextToClipboard(OmmySDK.Agent.myGameIds.adoptiveBannerAdId);
         }
-        CanyonSDK.Agent.myGameIds.adoptiveBannerAdId = value;
+        OmmySDK.Agent.myGameIds.adoptiveBannerAdId = value;
     }
 
     void CopyTextToClipboard(string text)

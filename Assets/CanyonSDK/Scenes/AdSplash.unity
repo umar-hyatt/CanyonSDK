@@ -197,7 +197,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1596357462}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1da3d8e436dac4398e47f0b3cfc5c8, type: 3}
   m_Name: 
@@ -873,8 +873,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
+      propertyPath: removeAd
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
+      propertyPath: useTestIDs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
+      propertyPath: InternetRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
+      propertyPath: myGameIds.preCacheRewardedInterstitial
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8000827440557703457, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
       propertyPath: m_Enabled
@@ -910,7 +926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8000827440557703462, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
       propertyPath: m_Name
-      value: Canyon SDK
+      value: Ommy SDK
       objectReference: {fileID: 0}
     - target: {fileID: 8000827440557703463, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
       propertyPath: m_RootOrder
