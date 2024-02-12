@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
+
 public class OmmyAnalyticsManager : MonoBehaviour
 {
     private static OmmyAnalyticsManager _instance = null;
@@ -102,7 +103,9 @@ public class OmmyAnalyticsManager : MonoBehaviour
     }
 
     #region GAIDs
-
+#if UNITY_EDITOR
+    [UnityEditor.MenuItem("Ommy/AnalyticsSetup")]
+#endif
     public static void SetGAIds()
     {
 #if UNITY_EDITOR

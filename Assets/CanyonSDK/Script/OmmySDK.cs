@@ -60,10 +60,28 @@ public class OmmySDK : MonoBehaviour
 
     void Start()
     {
+        InternetCheckerInit();
         InitAdmob();
         if (showBannerInStart)
             ShowAdoptiveBanner();
         Application.lowMemory += () => Resources.UnloadUnusedAssets();
+    }
+    public void InternetCheckerInit()
+    {
+#if UNITY_EDITOR
+        //	return;
+#endif
+        if (InternetRequired)
+        {
+            InternetManager obj = FindObjectOfType<InternetManager>();
+            if (obj == null)
+            {
+                var net = new GameObject();
+                net.name = "InternetManager";
+                net.AddComponent<InternetManager>();
+                DontDestroyOnLoad(net);
+            }
+        }
     }
     #region Stores
     public void ShowInAppRateUs()

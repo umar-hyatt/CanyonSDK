@@ -25,25 +25,31 @@ MonoBehaviour:
   UserMessagesSubmitted: 0
   UserMessagesFailed: 0
   CustomArea: 
-  gameKey: []
-  secretKey: []
-  Build: []
-  SelectedPlatformOrganization: []
-  SelectedPlatformStudio: []
-  SelectedPlatformGame: []
-  SelectedPlatformGameID: 
-  SelectedOrganization: 
-  SelectedStudio: 
-  SelectedGame: 
+  gameKey:
+  - 4da8a1f491369cbe667789499cadaf43
+  secretKey:
+  - b7811fd10811ff8b6136b3df3c40e9711044eb3f
+  Build:
+  - 0.1
+  SelectedPlatformOrganization:
+  - 
+  SelectedPlatformStudio:
+  - 
+  SelectedPlatformGame:
+  - 
+  SelectedPlatformGameID: ffffffff
+  SelectedOrganization: 00000000
+  SelectedStudio: 00000000
+  SelectedGame: 00000000
   NewVersion: 
   Changes: 
   SignUpOpen: 1
-  StudioName: 
-  GameName: 
+  StudioName: Canyon
+  GameName: CanyonSDK
   OrganizationName: 
   OrganizationIdentifier: 
   EmailGA: 
-  IntroScreen: 1
+  IntroScreen: 0
   InfoLogEditor: 1
   InfoLogBuild: 1
   VerboseLogBuild: 0
@@ -56,12 +62,12 @@ MonoBehaviour:
   ResourceItemTypes: []
   ResourceCurrencies: []
   LastCreatedGamePlatform: 0
-  Platforms: 
-  CurrentInspectorState: 0
+  Platforms: 0b000000
+  CurrentInspectorState: 1
   ClosedHints: 
   DisplayHints: 0
   DisplayHintsScrollState: {x: 0, y: 0}
-  Logo: {fileID: 0}
+  Logo: {fileID: 2800000, guid: 98df8f9c5678a4e5d964caa1244e8958, type: 3}
   UpdateIcon: {fileID: 0}
   InfoIcon: {fileID: 0}
   DeleteIcon: {fileID: 0}
@@ -75,16 +81,16 @@ MonoBehaviour:
   iosIcon: {fileID: 0}
   macIcon: {fileID: 0}
   windowsPhoneIcon: {fileID: 0}
-  UsePlayerSettingsBuildNumber: 0
+  UsePlayerSettingsBuildNumber: 1
   SubmitErrors: 1
-  NativeErrorReporting: 0
+  NativeErrorReporting: 1
   MaxErrorCount: 10
-  SubmitFpsAverage: 0
-  SubmitFpsCritical: 0
+  SubmitFpsAverage: 1
+  SubmitFpsCritical: 1
   IncludeGooglePlay: 1
-  FpsCriticalThreshold: 20
+  FpsCriticalThreshold: 30
   FpsCirticalSubmitInterval: 1
-  PlatformFoldOut: 
+  PlatformFoldOut: 01
   CustomDimensions01FoldOut: 0
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0
