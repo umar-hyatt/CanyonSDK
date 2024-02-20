@@ -161,14 +161,34 @@ public class OmmySDK : MonoBehaviour
 #endif
         // Configure TagForChildDirectedTreatment and test device IDs.
 
-        RequestConfiguration requestConfiguration =
-            new RequestConfiguration.Builder().SetTagForChildDirectedTreatment(tagForChild)
-            .SetTestDeviceIds(deviceIds).build();
+        // RequestConfiguration requestConfiguration =
+        //     new RequestConfiguration.Builder().SetTagForChildDirectedTreatment(tagForChild)
+        //     .SetTestDeviceIds(deviceIds).build();
+        RequestConfiguration requestConfiguration = new RequestConfiguration();
+        requestConfiguration.TagForChildDirectedTreatment=tagForChild;
+        requestConfiguration.TestDeviceIds=deviceIds;
         MobileAds.SetRequestConfiguration(requestConfiguration);
         // Initialize the Google Mobile Ads SDK.
         //MobileAds.Initialize(HandleInitCompleteAction);
         MobileAds.Initialize((initStatus) =>
         {
+            Dictionary<string, AdapterStatus> map = initStatus.getAdapterStatusMap();
+            foreach (KeyValuePair<string, AdapterStatus> keyValuePair in map)
+            {
+                string className = keyValuePair.Key;
+                AdapterStatus status = keyValuePair.Value;
+                switch (status.InitializationState)
+                {
+                case AdapterState.NotReady:
+                    // The adapter initialization did not complete.
+                    MonoBehaviour.print("Adapter: " + className + " not ready.");
+                    break;
+                case AdapterState.Ready:
+                    // The adapter was successfully initialized.
+                    MonoBehaviour.print("Adapter: " + className + " is initialized.");
+                    break;
+                }
+            }
             LoadAds();
             if (loadNextScene)
                 SceneManager.LoadScene(1);
