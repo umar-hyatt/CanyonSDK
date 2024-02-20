@@ -885,8 +885,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
+      propertyPath: tagForChild
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
       propertyPath: InternetRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
+      propertyPath: myGameIds.preCacheRewarded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
+      propertyPath: myGameIds.preCacheInterstitial
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
       propertyPath: myGameIds.preCacheRewardedInterstitial
@@ -970,6 +982,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8000827440557703463, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000827441378935081, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

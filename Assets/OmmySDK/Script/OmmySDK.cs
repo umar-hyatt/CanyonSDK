@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEditor;
 using UnityEngine.SceneManagement;
 using GoogleMobileAds.Api;
-using GoogleMobileAds.Common;
-using Unity.VisualScripting;
-using System.Collections;
 using GameAnalyticsSDK;
 public class OmmySDK : MonoBehaviour
 {
@@ -42,7 +38,7 @@ public class OmmySDK : MonoBehaviour
         }
     }
     void Awake()
-    {
+    { 
         if (_instance == null)
         {
             _instance = this;
@@ -603,7 +599,7 @@ public class OmmySDK : MonoBehaviour
                 ad.OnAdFullScreenContentClosed += () =>
                 {
                     PrintStatus("Rewarded ad closed.");
-                    RequestAndLoadRewardedAd();
+                    if(myGameIds.preCacheRewarded)RequestAndLoadRewardedAd();
                 };
                 ad.OnAdImpressionRecorded += () =>
                 {
@@ -784,7 +780,7 @@ public class OmmySDK : MonoBehaviour
                 ad.OnAdFullScreenContentClosed += () =>
               {
                   PrintStatus("RewardedInterstitial ad closed.");
-                  LoadRewardedInterstitialAd();
+                  if(myGameIds.preCacheRewardedInterstitial)LoadRewardedInterstitialAd();
               };
                 ad.OnAdImpressionRecorded += () =>
               {
