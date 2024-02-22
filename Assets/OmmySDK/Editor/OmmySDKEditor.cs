@@ -108,6 +108,7 @@ public class CanyonSDKEditor : Editor
             {
                 case 0: // Adoptive Banner
                     if (!adTypeSelected) break;
+                    
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Adoptive Banner", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(showBannerInStartProp, new GUIContent("Show Banner In Start", "Adoptive Banner"));

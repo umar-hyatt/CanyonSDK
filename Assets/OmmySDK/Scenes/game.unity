@@ -1565,13 +1565,23 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Show Interstitial
       m_Image: {fileID: 0}
+    - m_Text: Show RewardedInterstitial
+      m_Image: {fileID: 0}
     - m_Text: Show Adoptive Banner
       m_Image: {fileID: 0}
-    - m_Text: Show Banner
+    - m_Text: Hide Adoptive Banner
       m_Image: {fileID: 0}
-    - m_Text: Hide Banner
+    - m_Text: Unhide Adaptive Banner
       m_Image: {fileID: 0}
-    - m_Text: Destroy Banner
+    - m_Text: Destroy Adoptive Banner
+      m_Image: {fileID: 0}
+    - m_Text: Show SquareBanner
+      m_Image: {fileID: 0}
+    - m_Text: Hide SquareBanner
+      m_Image: {fileID: 0}
+    - m_Text: Unhide  SquareBanner
+      m_Image: {fileID: 0}
+    - m_Text: Destroy SquareBanner
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

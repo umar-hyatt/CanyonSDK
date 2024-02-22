@@ -24,21 +24,27 @@ public class TestSDK : MonoBehaviour
                 OmmySDK.Agent.ShowAdoptiveBanner();
                 break;
             case 4:
-                OmmySDK.Agent.HideAdaptiveBanner();
+                OmmySDK.Agent.HideAdaptiveBanner(true);
                 break;
             case 5:
-                OmmySDK.Agent.DestroyAdaptiveBannerAd();
+                OmmySDK.Agent.HideAdaptiveBanner(false);
                 break;
             case 6:
-                OmmySDK.Agent.ShowSquareBanner();
+                OmmySDK.Agent.DestroyAdaptiveBannerAd();
                 break;
             case 7:
-                OmmySDK.Agent.HideSquareBanner();
+                OmmySDK.Agent.ShowSquareBanner();
                 break;
             case 8:
-                OmmySDK.Agent.DestroySquareBannerAd();
+                OmmySDK.Agent.HideSquareBanner(true);
                 break;
             case 9:
+                OmmySDK.Agent.HideSquareBanner(false);
+                break;
+            case 10:
+                OmmySDK.Agent.DestroySquareBannerAd();
+                break;
+            case 11:
                 //GDPRManager.Agent.ResetConsentState();
                 break;
         }
