@@ -345,6 +345,10 @@ public class OmmySDK : MonoBehaviour
         {
             adaptiveBannerView.Show();
         }
+        else if(!hide)
+        {
+            ShowAdoptiveBanner();
+        }
     }
     public void HideSquareBanner(bool hide)
     {
@@ -355,6 +359,10 @@ public class OmmySDK : MonoBehaviour
         else if(squareBannerView !=null)
         {
             squareBannerView.Show();
+        }
+        else if(!hide)
+        {
+            ShowSquareBanner();
         }
     }
     public void DestroyAdaptiveBannerAd()

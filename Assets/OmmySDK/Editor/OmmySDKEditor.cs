@@ -107,8 +107,12 @@ public class CanyonSDKEditor : Editor
             switch (i)
             {
                 case 0: // Adoptive Banner
-                    if (!adTypeSelected) break;
-                    
+                    if (!adTypeSelected) 
+                    {
+                    adoptiveBannerProp.boolValue=false;
+                    break;
+                    }
+                    adoptiveBannerProp.boolValue=true;
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Adoptive Banner", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(showBannerInStartProp, new GUIContent("Show Banner In Start", "Adoptive Banner"));
@@ -117,7 +121,12 @@ public class CanyonSDKEditor : Editor
                         EditorGUILayout.PropertyField(adoptiveBannerAdIdProp, new GUIContent("Ad ID", "Adoptive Banner"));
                     break;
                 case 1: // Square Banner
-                    if (!adTypeSelected) break;
+                    if (!adTypeSelected)
+                    { 
+                        squareBannerProp.boolValue=false;
+                        break;
+                    }
+                    squareBannerProp.boolValue=true;
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Square Banner", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(squareBannerPosition, new GUIContent("Banner Position", "Square Banner"));
@@ -125,7 +134,12 @@ public class CanyonSDKEditor : Editor
                         EditorGUILayout.PropertyField(squareBannerAdIdProp, new GUIContent("Ad ID", "Square Banner"));
                     break;
                 case 2: // Interstitial
-                    if (!adTypeSelected) break;
+                    if (!adTypeSelected)
+                    { 
+                        interstitialProp.boolValue=false;
+                        break;
+                    }
+                    interstitialProp.boolValue=true;
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Interstitial", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(preCacheInterstitialProp, new GUIContent("Pre-Cache Interstitial", "Interstitial"));
@@ -133,7 +147,12 @@ public class CanyonSDKEditor : Editor
                         EditorGUILayout.PropertyField(interstitialAdIdProp, new GUIContent("Ad ID", "Interstitial"));
                     break;
                 case 3: // Rewarded Video
-                    if (!adTypeSelected) break;
+                    if (!adTypeSelected)
+                    { 
+                        rewardedProp.boolValue=false;
+                        break;
+                    }
+                    rewardedProp.boolValue=true;
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Rewarded Video", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(preCacheRewardedProp, new GUIContent("Pre-Cache Rewarded Video", "Rewarded Video"));
@@ -141,7 +160,12 @@ public class CanyonSDKEditor : Editor
                         EditorGUILayout.PropertyField(rewardedVideoAdIdProp, new GUIContent("Ad ID", "Rewarded Video"));
                     break;
                 case 4: // Rewarded Interstitial
-                    if (!adTypeSelected) break;
+                    if (!adTypeSelected)
+                    { 
+                        rewardedInterstitialProp.boolValue=false;
+                        break;
+                    }
+                    rewardedInterstitialProp.boolValue=true;
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Rewarded Interstitial", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(preCacheRewardedInterstitialProp, new GUIContent("Pre-Cache Rewarded Interstitial", "Rewarded Interstitial"));

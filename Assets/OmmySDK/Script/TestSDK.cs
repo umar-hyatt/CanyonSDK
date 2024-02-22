@@ -7,8 +7,23 @@ using System.Reflection;
 public class TestSDK : MonoBehaviour
 {
     public Dropdown dropdown;
+    public void OnInterstitialSuccess()
+    {
+
+    }
+    public void OnReward()
+    {
+            //add coins
+    }
+    public void OnRewardFail()
+    {
+        // show no ad panel
+    }
     public void CallButton()
     {
+        OmmySDK.Agent.ShowSquareBanner();
+        OmmySDK.Agent.ShowInterstitialAd(OnInterstitialSuccess);
+        OmmySDK.Agent.ShowRewardedAd(OnReward,OnRewardFail);
         switch (dropdown.value)
         {
             case 0:

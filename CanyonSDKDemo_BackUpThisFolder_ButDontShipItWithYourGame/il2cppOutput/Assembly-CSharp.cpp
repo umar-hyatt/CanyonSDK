@@ -2171,12 +2171,12 @@ inline void Action_1__ctor_mE9CC44390354758F587960FB48CF3560FCFAEAAC (Action_1_t
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void MobileAds_Initialize_m9151E3C38E0FAD4439DA5020A217BAB90ABB76AD (Action_1_t61953204BFE962922BA541482E3ECC9BB03FC8EE* ___0_initCompleteAction, const RuntimeMethod* method) ;
 // System.Void GoogleMobileAds.Api.AdRequest::.ctor()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void AdRequest__ctor_mC05DE470CAF8233EFC60787797696650D6CCC3AC (AdRequest_tB2AC2CD266CFD5D636C917BC2D938BE96E72BF4D* __this, const RuntimeMethod* method) ;
-// System.Void OmmySDK::ShowAdoptiveBanner()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_ShowAdoptiveBanner_mAE9F0F4351B4982023ED96E7C376A746BFA8CCB1 (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, const RuntimeMethod* method) ;
 // System.Void OmmySDK::RequestAndLoadRewardedAd(System.Action`1<System.Boolean>)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_RequestAndLoadRewardedAd_mA11D7635AF9D3F6FB7A3A95B29777340BC497791 (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* ___0_OnLoad, const RuntimeMethod* method) ;
 // System.Void OmmySDK::LoadRewardedInterstitialAd(System.Action`1<System.Boolean>)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_LoadRewardedInterstitialAd_mB449193850FAE207A084022A9E38B1C076CEC9A2 (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* ___0_OnLoad, const RuntimeMethod* method) ;
+// System.Void OmmySDK::ShowAdoptiveBanner()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_ShowAdoptiveBanner_mAE9F0F4351B4982023ED96E7C376A746BFA8CCB1 (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, const RuntimeMethod* method) ;
 // System.Void OmmySDK::RequestAndLoadInterstitialAd(System.Action`1<System.Boolean>)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_RequestAndLoadInterstitialAd_m3DEFD57D73BEDAD5C456F0F1A9DBCAA1C0E96384 (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C* ___0_OnLoad, const RuntimeMethod* method) ;
 // System.Void OmmySDK::PrintStatus(System.String)
@@ -2223,6 +2223,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_RequestAdaptiveBannerAd_m5B80E4A
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void BannerView_Hide_m54630CB9110A9D38DFC00BC047B775C778EA22BD (BannerView_t203A90A6D41B56EC7208F121D6EE7E7283A590BB* __this, const RuntimeMethod* method) ;
 // System.Void GoogleMobileAds.Api.BannerView::Show()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void BannerView_Show_m90ACC1B7ED13065667AB7948722F0B2CBD3A84AE (BannerView_t203A90A6D41B56EC7208F121D6EE7E7283A590BB* __this, const RuntimeMethod* method) ;
+// System.Void OmmySDK::ShowSquareBanner()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_ShowSquareBanner_m34ED00843153C0FAC437D41985BBD336C1C46E1E (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, const RuntimeMethod* method) ;
 // System.Void OmmySDK/<>c__DisplayClass40_0::.ctor()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void U3CU3Ec__DisplayClass40_0__ctor_mC9A82C7121345CE7ED7AF61D26CDD1FA0620D7F3 (U3CU3Ec__DisplayClass40_0_tAA76FD97879504055CAE4C9351E77FEAF58768CC* __this, const RuntimeMethod* method) ;
 // System.Void GoogleMobileAds.Api.InterstitialAd::Destroy()
@@ -2438,8 +2440,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_ShowInterstitialAd_m79FFD49386F9
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_ShowRewardedInterstitialAd_mB65B1701D4CF35A16B273A2A7C9E67A929DF0DE2 (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, Action_tD00B0A84D7945E50C2DFFC28EFEE6ED44ED2AD07* ___0_rewardSuccess, Action_tD00B0A84D7945E50C2DFFC28EFEE6ED44ED2AD07* ___1_rewardFail, const RuntimeMethod* method) ;
 // System.Void OmmySDK::HideAdaptiveBanner(System.Boolean)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_HideAdaptiveBanner_mC25AD9521326F2E7F2E5E401FE8A9D5AF2C0C2A7 (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, bool ___0_hide, const RuntimeMethod* method) ;
-// System.Void OmmySDK::ShowSquareBanner()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_ShowSquareBanner_m34ED00843153C0FAC437D41985BBD336C1C46E1E (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, const RuntimeMethod* method) ;
 // System.Void OmmySDK::HideSquareBanner(System.Boolean)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_HideSquareBanner_m07B296447E55C80AED5A2ACE691A951539554292 (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, bool ___0_hide, const RuntimeMethod* method) ;
 // System.Void OmmySDK::OpenAdInspector()
@@ -3486,36 +3486,22 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR AdRequest_tB2AC2CD266CFD5D636C917BC2D938BE96E
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void OmmySDK_LoadAds_mA9736A1B1FFD9164A3CEDA0C895611972BE2569D (OmmySDK_t1637A23A1FA5E30F0C8A7634E8BB89FA991C0BCB* __this, const RuntimeMethod* method) 
 {
 	{
-		// if (showBannerInStart)
-		bool L_0 = __this->___showBannerInStart_11;
-		if (!L_0)
-		{
-			goto IL_000e;
-		}
-	}
-	{
-		// ShowAdoptiveBanner();
-		OmmySDK_ShowAdoptiveBanner_mAE9F0F4351B4982023ED96E7C376A746BFA8CCB1(__this, NULL);
-	}
-
-IL_000e:
-	{
 		// if (myGameIds.rewarded && myGameIds.preCacheRewarded) RequestAndLoadRewardedAd();
-		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_1 = __this->___myGameIds_17;
-		NullCheck(L_1);
-		bool L_2 = L_1->___rewarded_3;
-		if (!L_2)
+		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_0 = __this->___myGameIds_17;
+		NullCheck(L_0);
+		bool L_1 = L_0->___rewarded_3;
+		if (!L_1)
 		{
-			goto IL_002f;
+			goto IL_0021;
 		}
 	}
 	{
-		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_3 = __this->___myGameIds_17;
-		NullCheck(L_3);
-		bool L_4 = L_3->___preCacheRewarded_11;
-		if (!L_4)
+		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_2 = __this->___myGameIds_17;
+		NullCheck(L_2);
+		bool L_3 = L_2->___preCacheRewarded_11;
+		if (!L_3)
 		{
-			goto IL_002f;
+			goto IL_0021;
 		}
 	}
 	{
@@ -3523,24 +3509,24 @@ IL_000e:
 		OmmySDK_RequestAndLoadRewardedAd_mA11D7635AF9D3F6FB7A3A95B29777340BC497791(__this, (Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C*)NULL, NULL);
 	}
 
-IL_002f:
+IL_0021:
 	{
 		// if (myGameIds.rewardedInterstitial && myGameIds.preCacheRewardedInterstitial) LoadRewardedInterstitialAd();
-		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_5 = __this->___myGameIds_17;
-		NullCheck(L_5);
-		bool L_6 = L_5->___rewardedInterstitial_4;
-		if (!L_6)
+		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_4 = __this->___myGameIds_17;
+		NullCheck(L_4);
+		bool L_5 = L_4->___rewardedInterstitial_4;
+		if (!L_5)
 		{
-			goto IL_0050;
+			goto IL_0042;
 		}
 	}
 	{
-		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_7 = __this->___myGameIds_17;
-		NullCheck(L_7);
-		bool L_8 = L_7->___preCacheRewardedInterstitial_13;
-		if (!L_8)
+		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_6 = __this->___myGameIds_17;
+		NullCheck(L_6);
+		bool L_7 = L_6->___preCacheRewardedInterstitial_13;
+		if (!L_7)
 		{
-			goto IL_0050;
+			goto IL_0042;
 		}
 	}
 	{
@@ -3548,13 +3534,13 @@ IL_002f:
 		OmmySDK_LoadRewardedInterstitialAd_mB449193850FAE207A084022A9E38B1C076CEC9A2(__this, (Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C*)NULL, NULL);
 	}
 
-IL_0050:
+IL_0042:
 	{
 		// if (removeAd) return;
-		bool L_9 = __this->___removeAd_15;
-		if (!L_9)
+		bool L_8 = __this->___removeAd_15;
+		if (!L_8)
 		{
-			goto IL_0059;
+			goto IL_004b;
 		}
 	}
 	{
@@ -3562,24 +3548,47 @@ IL_0050:
 		return;
 	}
 
-IL_0059:
+IL_004b:
 	{
-		// if (myGameIds.interstitial && myGameIds.preCacheInterstitial) RequestAndLoadInterstitialAd();
-		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_10 = __this->___myGameIds_17;
-		NullCheck(L_10);
-		bool L_11 = L_10->___interstitial_2;
-		if (!L_11)
+		// if (myGameIds.adaptiveBanner&&showBannerInStart)ShowAdoptiveBanner();
+		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_9 = __this->___myGameIds_17;
+		NullCheck(L_9);
+		bool L_10 = L_9->___adaptiveBanner_0;
+		if (!L_10)
 		{
-			goto IL_007a;
+			goto IL_0066;
 		}
 	}
 	{
+		bool L_11 = __this->___showBannerInStart_11;
+		if (!L_11)
+		{
+			goto IL_0066;
+		}
+	}
+	{
+		// if (myGameIds.adaptiveBanner&&showBannerInStart)ShowAdoptiveBanner();
+		OmmySDK_ShowAdoptiveBanner_mAE9F0F4351B4982023ED96E7C376A746BFA8CCB1(__this, NULL);
+	}
+
+IL_0066:
+	{
+		// if (myGameIds.interstitial && myGameIds.preCacheInterstitial) RequestAndLoadInterstitialAd();
 		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_12 = __this->___myGameIds_17;
 		NullCheck(L_12);
-		bool L_13 = L_12->___preCacheInterstitial_9;
+		bool L_13 = L_12->___interstitial_2;
 		if (!L_13)
 		{
-			goto IL_007a;
+			goto IL_0087;
+		}
+	}
+	{
+		IDs_t47969BBB2FB4843D70BA59F6D53A2D4787513C8C* L_14 = __this->___myGameIds_17;
+		NullCheck(L_14);
+		bool L_15 = L_14->___preCacheInterstitial_9;
+		if (!L_15)
+		{
+			goto IL_0087;
 		}
 	}
 	{
@@ -3587,7 +3596,7 @@ IL_0059:
 		OmmySDK_RequestAndLoadInterstitialAd_m3DEFD57D73BEDAD5C456F0F1A9DBCAA1C0E96384(__this, (Action_1_t10DCB0C07D0D3C565CEACADC80D1152B35A45F6C*)NULL, NULL);
 	}
 
-IL_007a:
+IL_0087:
 	{
 		// }
 		return;
@@ -4024,7 +4033,7 @@ IL_0017:
 		BannerView_t203A90A6D41B56EC7208F121D6EE7E7283A590BB* L_3 = __this->___adaptiveBannerView_6;
 		if (!L_3)
 		{
-			goto IL_002a;
+			goto IL_002b;
 		}
 	}
 	{
@@ -4032,9 +4041,24 @@ IL_0017:
 		BannerView_t203A90A6D41B56EC7208F121D6EE7E7283A590BB* L_4 = __this->___adaptiveBannerView_6;
 		NullCheck(L_4);
 		BannerView_Show_m90ACC1B7ED13065667AB7948722F0B2CBD3A84AE(L_4, NULL);
+		return;
 	}
 
-IL_002a:
+IL_002b:
+	{
+		// else if(!hide)
+		bool L_5 = ___0_hide;
+		if (L_5)
+		{
+			goto IL_0034;
+		}
+	}
+	{
+		// ShowAdoptiveBanner();
+		OmmySDK_ShowAdoptiveBanner_mAE9F0F4351B4982023ED96E7C376A746BFA8CCB1(__this, NULL);
+	}
+
+IL_0034:
 	{
 		// }
 		return;
@@ -4072,7 +4096,7 @@ IL_0017:
 		BannerView_t203A90A6D41B56EC7208F121D6EE7E7283A590BB* L_3 = __this->___squareBannerView_5;
 		if (!L_3)
 		{
-			goto IL_002a;
+			goto IL_002b;
 		}
 	}
 	{
@@ -4080,9 +4104,24 @@ IL_0017:
 		BannerView_t203A90A6D41B56EC7208F121D6EE7E7283A590BB* L_4 = __this->___squareBannerView_5;
 		NullCheck(L_4);
 		BannerView_Show_m90ACC1B7ED13065667AB7948722F0B2CBD3A84AE(L_4, NULL);
+		return;
 	}
 
-IL_002a:
+IL_002b:
+	{
+		// else if(!hide)
+		bool L_5 = ___0_hide;
+		if (L_5)
+		{
+			goto IL_0034;
+		}
+	}
+	{
+		// ShowSquareBanner();
+		OmmySDK_ShowSquareBanner_m34ED00843153C0FAC437D41985BBD336C1C46E1E(__this, NULL);
+	}
+
+IL_0034:
 	{
 		// }
 		return;
