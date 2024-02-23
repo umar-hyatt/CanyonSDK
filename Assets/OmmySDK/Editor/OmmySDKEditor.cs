@@ -9,9 +9,19 @@ using UnityEngine;
 [CustomEditor(typeof(OmmySDK))]
 public class OmmySDKEditor : Editor
 {
-    [UnityEditor.MenuItem("Ommy/GameAnalyticsSetup")]
+    [UnityEditor.MenuItem("Ommy/Fix Errors")]
     private static void UpdateAdMob()
         {
+           // GoogleMobileAds.Api.AdRequest
+            var gameAnalytics = new string[] {"GameAnalyticsSDK.GameAnalytics"};
+            if (TypeExists(gameAnalytics))
+            {
+                UpdateDefines("GameAnalytics", true, new BuildTargetGroup[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
+            }
+            else
+            {
+                UpdateDefines("GameAnalytics", false, new BuildTargetGroup[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
+            }
             var topOnTypes = new string[] { "GoogleMobileAds.Api.AdRequest", "GoogleMobileAds.Api.BannerView", "GoogleMobileAds.Api.InterstitialAd", "GoogleMobileAds.Api.RewardedAd", "GoogleMobileAds.Api.RewardedInterstitialAd" };
             if (TypeExists(topOnTypes))
             {
