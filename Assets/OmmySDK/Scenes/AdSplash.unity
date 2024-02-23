@@ -889,6 +889,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
+      propertyPath: myGameIds.rewardedInterstitial
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000827440557703456, guid: 7b561042e77e98d47bf569779daa2aad, type: 3}
       propertyPath: myGameIds.preCacheRewardedInterstitial
       value: 1
       objectReference: {fileID: 0}

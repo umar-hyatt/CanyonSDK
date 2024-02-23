@@ -8,6 +8,7 @@ using GoogleMobileAds.Common;
 using Unity.VisualScripting;
 using System.Collections;
 using GameAnalyticsSDK;
+using UnityEditor.Search;
 public class OmmySDK : MonoBehaviour
 {
     //============================== Variables_Region ============================== 
@@ -62,8 +63,6 @@ public class OmmySDK : MonoBehaviour
     {
         InternetCheckerInit();
         InitAdmob();
-        if (showBannerInStart)
-            ShowAdoptiveBanner();
         Application.lowMemory += () => Resources.UnloadUnusedAssets();
     }
     public void InternetCheckerInit()
@@ -207,6 +206,7 @@ public class OmmySDK : MonoBehaviour
         if (myGameIds.rewarded && myGameIds.preCacheRewarded) RequestAndLoadRewardedAd();
         if (myGameIds.rewardedInterstitial && myGameIds.preCacheRewardedInterstitial) LoadRewardedInterstitialAd();
         if (removeAd) return;
+        if (showBannerInStart) ShowAdoptiveBanner();
         if (myGameIds.interstitial && myGameIds.preCacheInterstitial) RequestAndLoadInterstitialAd();
     }
     #region BANNER ADS
@@ -369,18 +369,46 @@ public class OmmySDK : MonoBehaviour
         var _adSize = AdSize.GetLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
         RequestAdaptiveBannerAd(myGameIds.adoptiveBannerAdId, _adSize, myGameIds.adoptiveBannerPosition);
     }
-    public void HideAdaptiveBanner()
+    public void HideAdaptiveBanner(bool hide)
     {
-        if (adaptiveBannerView != null)
+        if(hide)
         {
-            adaptiveBannerView.Hide();
+            if (adaptiveBannerView != null)
+            {
+                adaptiveBannerView.Hide();
+            }
+        }
+        else
+        {
+            if (adaptiveBannerView != null)
+            {
+                adaptiveBannerView.Show();
+            }
+            else
+            {
+                ShowAdoptiveBanner();
+            }
         }
     }
-    public void HideSquareBanner()
+    public void HideSquareBanner(bool hide)
     {
-        if (squareBannerView != null)
+        if(hide)
         {
-            squareBannerView.Hide();
+            if (squareBannerView != null)
+            {
+                squareBannerView.Hide();
+            }
+        }
+        else
+        {
+            if (squareBannerView != null)
+            {
+                squareBannerView.Show();
+            }
+            else
+            {
+                ShowSquareBanner();
+            }
         }
     }
     public void DestroyAdaptiveBannerAd()
@@ -502,8 +530,8 @@ public class OmmySDK : MonoBehaviour
 
         if (!myGameIds.preCacheInterstitial)
         {
-            adLoadingPanel.SetActive(true);
-            _interstitialCallBack += () => adLoadingPanel.SetActive(false);
+            ShowLoading(true);
+            _interstitialCallBack += () => ShowLoading(false);
         }
 
         interstitialCallBack = _interstitialCallBack;
@@ -526,7 +554,7 @@ public class OmmySDK : MonoBehaviour
                 }
                 else
                 {
-                    adLoadingPanel.SetActive(false);
+                    ShowLoading(false);
                 }
             });
         }
@@ -603,6 +631,7 @@ public class OmmySDK : MonoBehaviour
                 ad.OnAdFullScreenContentClosed += () =>
                 {
                     PrintStatus("Rewarded ad closed.");
+                    if(myGameIds.preCacheRewarded)
                     RequestAndLoadRewardedAd();
                 };
                 ad.OnAdImpressionRecorded += () =>
@@ -638,8 +667,8 @@ public class OmmySDK : MonoBehaviour
 
         if (!myGameIds.preCacheRewarded)
         {
-            adLoadingPanel.SetActive(true);
-            rewardSuccess += () => adLoadingPanel.SetActive(false);
+            ShowLoading(true);
+            rewardSuccess += () => ShowLoading(false);
         }
 
         rewardedCallBack = rewardSuccess;
@@ -673,7 +702,7 @@ public class OmmySDK : MonoBehaviour
                 }
                 else
                 {
-                    adLoadingPanel.SetActive(false);
+                    ShowLoading(false);
                 }
             });
         }
@@ -682,8 +711,8 @@ public class OmmySDK : MonoBehaviour
     {
         if (!myGameIds.preCacheRewardedInterstitial)
         {
-            adLoadingPanel.SetActive(true);
-            rewardSuccess += () => adLoadingPanel.SetActive(false);
+            ShowLoading(true);
+            rewardSuccess += () => ShowLoading(false);
         }
 
 
@@ -720,7 +749,7 @@ public class OmmySDK : MonoBehaviour
                 }
                 else
                 {
-                    adLoadingPanel.SetActive(false);
+                    ShowLoading(false);
                 }
             });
         }
@@ -784,6 +813,7 @@ public class OmmySDK : MonoBehaviour
                 ad.OnAdFullScreenContentClosed += () =>
               {
                   PrintStatus("RewardedInterstitial ad closed.");
+                  if(myGameIds.preCacheRewardedInterstitial)
                   LoadRewardedInterstitialAd();
               };
                 ad.OnAdImpressionRecorded += () =>
@@ -832,7 +862,26 @@ public class OmmySDK : MonoBehaviour
 
     }
     #region AD INSPECTOR
-
+    void ShowLoading(bool show)
+    {
+        if(!show)
+        {
+            adLoadingPanel.SetActive(false);
+            return;
+        }
+        if(loadingCoroutine!=null)
+        {
+            StopCoroutine(ShowLoadingTask());
+        }
+        loadingCoroutine=StartCoroutine(ShowLoadingTask());
+    }
+    Coroutine loadingCoroutine;
+    IEnumerator ShowLoadingTask()
+    {
+        adLoadingPanel.SetActive(true);
+        yield return new WaitForSeconds(5);
+        adLoadingPanel.SetActive(false);
+    }
     public void OpenAdInspector()
     {
         PrintStatus("Opening Ad inspector.");

@@ -24,7 +24,7 @@ public class TestSDK : MonoBehaviour
                 OmmySDK.Agent.ShowAdoptiveBanner();
                 break;
             case 4:
-                OmmySDK.Agent.HideAdaptiveBanner();
+                OmmySDK.Agent.HideAdaptiveBanner(true);
                 break;
             case 5:
                 OmmySDK.Agent.DestroyAdaptiveBannerAd();
@@ -33,7 +33,7 @@ public class TestSDK : MonoBehaviour
                 OmmySDK.Agent.ShowSquareBanner();
                 break;
             case 7:
-                OmmySDK.Agent.HideSquareBanner();
+                OmmySDK.Agent.HideSquareBanner(true);
                 break;
             case 8:
                 OmmySDK.Agent.DestroySquareBannerAd();
