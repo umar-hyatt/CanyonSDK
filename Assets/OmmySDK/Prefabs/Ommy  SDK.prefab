@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8000827440557703463}
   - component: {fileID: 8000827440557703456}
-  - component: {fileID: 8000827440557703457}
   m_Layer: 0
   m_Name: Ommy  SDK
   m_TagString: Untagged
@@ -41,67 +40,38 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8000827440557703462}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1da3d8e436dac4398e47f0b3cfc5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   adLoadingPanel: {fileID: 8000827441378935081}
-  showBannerInStart: 1
+  showBannerInStart: 0
   useTestIDs: 1
   InternetRequired: 0
-  loadNextScene: 1
+  loadNextScene: 0
   removeAd: 0
-  tagForChild: 0
+  tagForChild: 1
   myGameIds:
     adaptiveBanner: 1
     squareBanner: 1
     interstitial: 1
     rewarded: 1
-    rewardedInterstitial: 1
-    squareBannerPosition: 0
+    rewardedInterstitial: 0
+    squareBannerPosition: 3
     squareBannerAdId: 
-    adoptiveBannerPosition: 1
-    adoptiveBannerAdId: 
-    preCacheInterstitial: 1
+    adoptiveBannerPosition: 0
+    adoptiveBannerAdId: dfgsdfgsdfgsdfg
+    preCacheInterstitial: 0
     interstitialAdId: 
-    preCacheRewarded: 1
+    preCacheRewarded: 0
     rewardedVideoAdId: 
-    preCacheRewardedInterstitial: 1
+    preCacheRewardedInterstitial: 0
     rewardedInterstitialAdId: 
   Links:
     RateUsLink: 
     MoreGamesLink: 
     PrivacyLink: 
---- !u!114 &8000827440557703457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8000827440557703462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecbe56220eae3784ca3aded03527e9a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onInitialized:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8000827440557703456}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  gameKey: 4da8a1f491369cbe667789499cadaf43
-  secretKey: b7811fd10811ff8b6136b3df3c40e9711044eb3f
 --- !u!1 &8000827440695742205
 GameObject:
   m_ObjectHideFlags: 0
