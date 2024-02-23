@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using GameAnalyticsSDK;
@@ -8,7 +9,7 @@ using GoogleMobileAds.Api;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
-
+using UnityEditor;
 
 public class OmmyAnalyticsManager : MonoBehaviour
 {
@@ -101,7 +102,6 @@ public class OmmyAnalyticsManager : MonoBehaviour
     {
         GameAnalytics.NewDesignEvent(eventData);
     }
-
     #region GAIDs
 #if UNITY_EDITOR
     [UnityEditor.MenuItem("Ommy/AnalyticsSetup")]

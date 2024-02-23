@@ -1,11 +1,62 @@
 using System.Drawing;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 
 [CustomEditor(typeof(OmmySDK))]
-public class CanyonSDKEditor : Editor
+public class OmmySDKEditor : Editor
 {
+    [UnityEditor.MenuItem("Ommy/GameAnalyticsSetup")]
+    private static void UpdateAdMob()
+        {
+            var topOnTypes = new string[] { "GoogleMobileAds.Api.AdRequest", "GoogleMobileAds.Api.BannerView", "GoogleMobileAds.Api.InterstitialAd", "GoogleMobileAds.Api.RewardedAd", "GoogleMobileAds.Api.RewardedInterstitialAd" };
+            if (TypeExists(topOnTypes))
+            {
+                UpdateDefines("gameanalytics_admob_enabled", true, new BuildTargetGroup[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
+            }
+            else
+            {
+                UpdateDefines("gameanalytics_admob_enabled", false, new BuildTargetGroup[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
+            }
+        }
+         private static bool TypeExists(params string[] types)
+        {
+            if (types == null || types.Length == 0)
+                return false;
+
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
+            {
+                if (types.Any(type => assembly.GetType(type) != null))
+                    return true;
+            }
+
+            return false;
+        }
+        private static void UpdateDefines(string entry, bool enabled, BuildTargetGroup[] groups)
+        {
+            foreach (var group in groups)
+            {
+                var defines = new List<string>(PlayerSettings.GetScriptingDefineSymbolsForGroup(group).Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries));
+                var edited = false;
+                if (enabled && !defines.Contains(entry))
+                {
+                    defines.Add(entry);
+                    edited = true;
+                }
+                else if (!enabled && defines.Contains(entry))
+                {
+                    defines.Remove(entry);
+                    edited = true;
+                }
+                if (edited) {
+                    PlayerSettings.SetScriptingDefineSymbolsForGroup(group, string.Join(";", defines.ToArray()));
+                }
+            }
+        }
     SerializedProperty adLoadingPanel;
     SerializedProperty showBannerInStartProp;
     SerializedProperty useTestIDsProp;

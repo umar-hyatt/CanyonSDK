@@ -40,7 +40,7 @@ namespace GameAnalyticsSDK.Editor
             Update3rdPartyIntegrations();
         }
 
-        private static void Update3rdPartyIntegrations()
+        public static void Update3rdPartyIntegrations()
         {
             UpdateMoPub();
             UpdateFyber();
