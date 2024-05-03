@@ -12,10 +12,10 @@ public class TestSDK : MonoBehaviour
         switch (dropdown.value)
         {
             case 0:
-                OmmySDK.Agent.ShowRewardedAd();
+                OmmySDK.Agent.StartRewardedAdTimer();
                 break;
             case 1:
-                OmmySDK.Agent.ShowInterstitialAd();
+                OmmySDK.Agent.StartInterstitialAdTimer();
                 break;
             case 2:
                 OmmySDK.Agent.ShowRewardedInterstitialAd();
