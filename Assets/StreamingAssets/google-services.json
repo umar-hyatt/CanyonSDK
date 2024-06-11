@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "562500312558",
+    "project_id": "fir-testing-3207e",
+    "storage_bucket": "fir-testing-3207e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562500312558:android:4745665cb2cee320bd42ff",
+        "android_client_info": {
+          "package_name": "com.ommy.test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnqT9k8oBn-pHH1ywjTIumrDg_CQdTnj8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

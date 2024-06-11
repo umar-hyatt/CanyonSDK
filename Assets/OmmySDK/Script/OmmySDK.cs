@@ -4,13 +4,10 @@ using System;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using GoogleMobileAds.Api;
-using GoogleMobileAds.Common;
-using Unity.VisualScripting;
 using System.Collections;
 #if GameAnalytics
 using GameAnalyticsSDK;
 #endif
-using UnityEditor.Search;
 public class OmmySDK : MonoBehaviour
 {
     //============================== Variables_Region ============================== 
