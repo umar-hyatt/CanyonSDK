@@ -4,10 +4,10 @@ using System;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using GoogleMobileAds.Api;
-using GoogleMobileAds.Common;
-using Unity.VisualScripting;
 using System.Collections;
+#if GameAnalytics
 using GameAnalyticsSDK;
+#endif
 public class OmmySDK : MonoBehaviour
 {
     //============================== Variables_Region ============================== 
@@ -18,7 +18,7 @@ public class OmmySDK : MonoBehaviour
     public InterstitialAd interstitialAd;
     public RewardedAd rewardedAd;
     public RewardedInterstitialAd rewardedInterstitialAd;
-    public GameObject adLoadingPanel;
+    public GameObject adLoadingPanel,noAdPanel;
     public bool showBannerInStart;
     public bool useTestIDs;
     public bool InternetRequired;
@@ -62,8 +62,7 @@ public class OmmySDK : MonoBehaviour
     {
         InternetCheckerInit();
         InitAdmob();
-        if (showBannerInStart)
-            ShowAdoptiveBanner();
+        removeAd = PlayerPrefs.GetInt(nameof(removeAd))==1;
         Application.lowMemory += () => Resources.UnloadUnusedAssets();
     }
     public void InternetCheckerInit()
@@ -106,11 +105,8 @@ public class OmmySDK : MonoBehaviour
     #region Links 
     public void RateUs()
     {
-
         if (InternetStatus())
             Application.OpenURL(Links.RateUsLink);
-
-
     }
     public void MoreGames()
     {
@@ -126,7 +122,6 @@ public class OmmySDK : MonoBehaviour
     }
     public void ExitGame()
     {
-
         Application.Quit();
     }
 
@@ -164,9 +159,10 @@ public class OmmySDK : MonoBehaviour
         // RequestConfiguration requestConfiguration =
         //     new RequestConfiguration.Builder().SetTagForChildDirectedTreatment(tagForChild)
         //     .SetTestDeviceIds(deviceIds).build();
+        MobileAds.RaiseAdEventsOnUnityMainThread=true;
         RequestConfiguration requestConfiguration = new RequestConfiguration();
-        requestConfiguration.TagForChildDirectedTreatment=tagForChild;
-        requestConfiguration.TestDeviceIds=deviceIds;
+        requestConfiguration.TagForChildDirectedTreatment = tagForChild;
+        requestConfiguration.TestDeviceIds = deviceIds;
         MobileAds.SetRequestConfiguration(requestConfiguration);
         // Initialize the Google Mobile Ads SDK.
         //MobileAds.Initialize(HandleInitCompleteAction);
@@ -179,14 +175,14 @@ public class OmmySDK : MonoBehaviour
                 AdapterStatus status = keyValuePair.Value;
                 switch (status.InitializationState)
                 {
-                case AdapterState.NotReady:
-                    // The adapter initialization did not complete.
-                    MonoBehaviour.print("Adapter: " + className + " not ready.");
-                    break;
-                case AdapterState.Ready:
-                    // The adapter was successfully initialized.
-                    MonoBehaviour.print("Adapter: " + className + " is initialized.");
-                    break;
+                    case AdapterState.NotReady:
+                        // The adapter initialization did not complete.
+                        MonoBehaviour.print("Adapter: " + className + " not ready.");
+                        break;
+                    case AdapterState.Ready:
+                        // The adapter was successfully initialized.
+                        MonoBehaviour.print("Adapter: " + className + " is initialized.");
+                        break;
                 }
             }
             LoadAds();
@@ -207,6 +203,7 @@ public class OmmySDK : MonoBehaviour
         if (myGameIds.rewarded && myGameIds.preCacheRewarded) RequestAndLoadRewardedAd();
         if (myGameIds.rewardedInterstitial && myGameIds.preCacheRewardedInterstitial) LoadRewardedInterstitialAd();
         if (removeAd) return;
+        if (showBannerInStart) ShowAdoptiveBanner();
         if (myGameIds.interstitial && myGameIds.preCacheInterstitial) RequestAndLoadInterstitialAd();
     }
     #region BANNER ADS
@@ -233,7 +230,9 @@ public class OmmySDK : MonoBehaviour
         {
             adaptiveBannerView.Destroy();
         }
+#if GameAnalytics
         if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Request, GAAdType.Banner);
+#endif
 
         // Create a 320x50 banner at top of the screen
         adaptiveBannerView = new BannerView(adUnitId, adSize, adPosition);
@@ -241,7 +240,7 @@ public class OmmySDK : MonoBehaviour
         // Add Event Handlers
         adaptiveBannerView.OnBannerAdLoaded += () =>
         {
-#if gameanalytics_admob_enabled
+#if GameAnalytics
             if (GameAnalytics.Initialized)
             {
                 OmmyAnalyticsManager.Agent.AdEventILDR(adUnitId, adaptiveBannerView);
@@ -252,12 +251,16 @@ public class OmmySDK : MonoBehaviour
         };
         adaptiveBannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
         {
+#if GameAnalytics
             if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.FailedShow, GAAdType.Banner);
+#endif
             PrintStatus("<color=red> Error: Banner ad failed to load with error: " + error.GetMessage());
         };
         adaptiveBannerView.OnAdFullScreenContentOpened += () =>
         {
+#if GameAnalytics
             if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Show, GAAdType.Banner);
+#endif
             PrintStatus("Banner ad opening.");
         };
         adaptiveBannerView.OnAdFullScreenContentClosed += () =>
@@ -266,7 +269,9 @@ public class OmmySDK : MonoBehaviour
         };
         adaptiveBannerView.OnAdClicked += () =>
         {
+#if GameAnalytics
             if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Clicked, GAAdType.Banner);
+#endif
             PrintStatus("Banner ad clicked.");
         };
         adaptiveBannerView.OnAdPaid += (AdValue adValue) =>
@@ -306,29 +311,35 @@ public class OmmySDK : MonoBehaviour
 
         // Create a 320x50 banner at top of the screen
         squareBannerView = new BannerView(adUnitId, adSize, adPosition);
-#if gameanalytics_admob_enabled
+#if GameAnalytics
         if (GameAnalytics.Initialized)
         {
             OmmyAnalyticsManager.Agent.AdEventILDR(adUnitId, squareBannerView);
             OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Request, GAAdType.OfferWall);
         }
-#endif        
-// Add Event Handlers
+#endif
+        // Add Event Handlers
         squareBannerView.OnBannerAdLoaded += () =>
         {
+#if GameAnalytics
             if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Loaded, GAAdType.OfferWall);
+#endif
 
             PrintStatus("Banner ad loaded.");
         };
         squareBannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
         {
+#if GameAnalytics
             if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.FailedShow, GAAdType.OfferWall);
+#endif
 
             PrintStatus("<color=red> Error: Banner ad failed to load with error: " + error.GetMessage());
         };
         squareBannerView.OnAdFullScreenContentOpened += () =>
         {
+#if GameAnalytics
             if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Show, GAAdType.OfferWall);
+#endif
             PrintStatus("Banner ad opening.");
         };
         squareBannerView.OnAdFullScreenContentClosed += () =>
@@ -337,7 +348,9 @@ public class OmmySDK : MonoBehaviour
         };
         squareBannerView.OnAdClicked += () =>
         {
+#if GameAnalytics
             if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Clicked, GAAdType.OfferWall);
+#endif
             PrintStatus("Banner ad clicked.");
         };
         squareBannerView.OnAdPaid += (AdValue adValue) =>
@@ -369,18 +382,46 @@ public class OmmySDK : MonoBehaviour
         var _adSize = AdSize.GetLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
         RequestAdaptiveBannerAd(myGameIds.adoptiveBannerAdId, _adSize, myGameIds.adoptiveBannerPosition);
     }
-    public void HideAdaptiveBanner()
+    public void HideAdaptiveBanner(bool hide)
     {
-        if (adaptiveBannerView != null)
+        if (hide)
         {
-            adaptiveBannerView.Hide();
+            if (adaptiveBannerView != null)
+            {
+                adaptiveBannerView.Hide();
+            }
+        }
+        else
+        {
+            if (adaptiveBannerView != null)
+            {
+                adaptiveBannerView.Show();
+            }
+            else
+            {
+                ShowAdoptiveBanner();
+            }
         }
     }
-    public void HideSquareBanner()
+    public void HideSquareBanner(bool hide)
     {
-        if (squareBannerView != null)
+        if (hide)
         {
-            squareBannerView.Hide();
+            if (squareBannerView != null)
+            {
+                squareBannerView.Hide();
+            }
+        }
+        else
+        {
+            if (squareBannerView != null)
+            {
+                squareBannerView.Show();
+            }
+            else
+            {
+                ShowSquareBanner();
+            }
         }
     }
     public void DestroyAdaptiveBannerAd()
@@ -425,8 +466,9 @@ public class OmmySDK : MonoBehaviour
             interstitialAd = null;
         }
         // Load an interstitial ad
-
+#if GameAnalytics
         OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Request, GAAdType.Interstitial);
+#endif
         InterstitialAd.Load(adUnitId, CreateAdRequest(),
             (InterstitialAd ad, LoadAdError loadError) =>
             {
@@ -435,7 +477,9 @@ public class OmmySDK : MonoBehaviour
                     PrintStatus("<color=red> Error: Interstitial ad failed to load with error: " +
                         loadError.GetMessage());
                     OnLoad?.Invoke(false);
+#if GameAnalytics
                     if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.FailedShow, GAAdType.Interstitial);
+#endif
 
                     return;
                 }
@@ -443,7 +487,9 @@ public class OmmySDK : MonoBehaviour
                 {
                     PrintStatus("<color=red> Error: Interstitial ad failed to load.");
                     OnLoad?.Invoke(false);
+#if GameAnalytics
                     if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.FailedShow, GAAdType.Interstitial);
+#endif
 
                     return;
                 }
@@ -451,7 +497,7 @@ public class OmmySDK : MonoBehaviour
                 PrintStatus("Interstitial ad loaded.");
                 interstitialAd = ad;
                 OnLoad?.Invoke(true);
-#if gameanalytics_admob_enabled
+#if GameAnalytics
                 if (GameAnalytics.Initialized)
                 {
                     OmmyAnalyticsManager.Agent.AdEventILDR(adUnitId, interstitialAd);
@@ -461,12 +507,15 @@ public class OmmySDK : MonoBehaviour
                 ad.OnAdFullScreenContentOpened += () =>
                 {
                     interstitialCallBack?.Invoke();
+#if GameAnalytics
                     if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Show, GAAdType.Interstitial);
+#endif
 
                     PrintStatus("Interstitial ad opening.");
                 };
                 ad.OnAdFullScreenContentClosed += () =>
                 {
+                    ShowLoading(false);
                     PrintStatus("Interstitial ad closed.");
                     if (myGameIds.preCacheInterstitial)
                         RequestAndLoadInterstitialAd();
@@ -477,7 +526,9 @@ public class OmmySDK : MonoBehaviour
                 };
                 ad.OnAdClicked += () =>
                 {
+#if GameAnalytics
                     if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Clicked, GAAdType.Interstitial);
+#endif
                     PrintStatus("Interstitial ad recorded a click.");
                 };
                 ad.OnAdFullScreenContentFailed += (AdError error) =>
@@ -496,14 +547,30 @@ public class OmmySDK : MonoBehaviour
                 };
             });
     }
+    public void StartInterstitialAdTimer(Action action=null)
+    {
+        if(interstitialTimerCorotine!=null)
+        {
+            StopCoroutine(interstitialTimerCorotine);
+        }
+        interstitialTimerCorotine = StartCoroutine(StartInterstitialAdTimer(action,3));
+    }
+    Coroutine interstitialTimerCorotine;
+    IEnumerator StartInterstitialAdTimer(Action action,int time)
+    {
+        ShowLoading(true);
+        yield return new WaitForSeconds(3);
+        ShowInterstitialAd(action);
+    }
     public void ShowInterstitialAd(Action _interstitialCallBack = null)
     {
+        
         if (removeAd) return;
 
         if (!myGameIds.preCacheInterstitial)
         {
-            adLoadingPanel.SetActive(true);
-            _interstitialCallBack += () => adLoadingPanel.SetActive(false);
+            ShowLoading(true);
+            _interstitialCallBack += () => ShowLoading(false);
         }
 
         interstitialCallBack = _interstitialCallBack;
@@ -526,7 +593,7 @@ public class OmmySDK : MonoBehaviour
                 }
                 else
                 {
-                    adLoadingPanel.SetActive(false);
+                    ShowLoading(false);
                 }
             });
         }
@@ -556,7 +623,9 @@ public class OmmySDK : MonoBehaviour
             adUnitId = "unexpected_platform";
 #endif
         }
+#if GameAnalytics
         if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Request, GAAdType.RewardedVideo);
+#endif
         // Clean up the old ad before loading a new one.
         if (rewardedAd != null)
         {
@@ -574,7 +643,9 @@ public class OmmySDK : MonoBehaviour
                     PrintStatus("Rewarded ad failed to load with error: " +
                                 loadError.GetMessage());
                     OnLoad?.Invoke(false);
+#if GameAnalytics
                     if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.FailedShow, GAAdType.RewardedVideo);
+#endif
 
                     return;
                 }
@@ -582,13 +653,15 @@ public class OmmySDK : MonoBehaviour
                 {
                     PrintStatus("Rewarded ad failed to load.");
                     OnLoad?.Invoke(false);
+#if GameAnalytics
                     if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.FailedShow, GAAdType.RewardedVideo);
+#endif
                     return;
                 }
                 PrintStatus("Rewarded ad loaded.");
                 rewardedAd = ad;
                 OnLoad?.Invoke(true);
-#if gameanalytics_admob_enabled
+#if GameAnalytics
                 if (GameAnalytics.Initialized)
                 {
                     OmmyAnalyticsManager.Agent.AdEventILDR(adUnitId, rewardedAd);
@@ -597,13 +670,17 @@ public class OmmySDK : MonoBehaviour
 #endif
                 ad.OnAdFullScreenContentOpened += () =>
                 {
+#if GameAnalytics
                     if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Show, GAAdType.RewardedVideo);
+#endif
                     PrintStatus("Rewarded ad opening.");
                 };
                 ad.OnAdFullScreenContentClosed += () =>
                 {
+                    ShowLoading(false);
                     PrintStatus("Rewarded ad closed.");
-                    RequestAndLoadRewardedAd();
+                    if (myGameIds.preCacheRewarded)
+                        RequestAndLoadRewardedAd();
                 };
                 ad.OnAdImpressionRecorded += () =>
                 {
@@ -611,13 +688,17 @@ public class OmmySDK : MonoBehaviour
                 };
                 ad.OnAdClicked += () =>
                 {
+#if GameAnalytics
                     if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Clicked, GAAdType.RewardedVideo);
+#endif
 
                     PrintStatus("Rewarded ad recorded a click.");
                 };
                 ad.OnAdFullScreenContentFailed += (AdError error) =>
                 {
+#if GameAnalytics
                     if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.FailedShow, GAAdType.RewardedVideo);
+#endif
                     rewardedCallBack?.Invoke();
                     PrintStatus("Rewarded ad failed to show with error: " +
                                error.GetMessage());
@@ -633,13 +714,27 @@ public class OmmySDK : MonoBehaviour
                 };
             });
     }
+    public void StartRewardedAdTimer(Action success=null, Action fail=null)
+    {
+        if(rewardedTimerCorotine!=null)
+        {
+            StopCoroutine(rewardedTimerCorotine);
+        }
+        rewardedTimerCorotine = StartCoroutine(StartRewardedAdTimer(success,fail,3));
+    }
+    Coroutine rewardedTimerCorotine;
+    IEnumerator StartRewardedAdTimer(Action success ,Action fail ,int time)
+    {
+        ShowLoading(true);
+        yield return new WaitForSeconds(3);
+        ShowRewardedAd(success,fail);
+    }
     public void ShowRewardedAd(Action rewardSuccess = null, Action noVideoAvailable = null)
     {
-
         if (!myGameIds.preCacheRewarded)
         {
-            adLoadingPanel.SetActive(true);
-            rewardSuccess += () => adLoadingPanel.SetActive(false);
+            ShowLoading(true);
+            rewardSuccess += () => ShowLoading(false);
         }
 
         rewardedCallBack = rewardSuccess;
@@ -648,7 +743,9 @@ public class OmmySDK : MonoBehaviour
             PrintStatus("Reward not null");
             rewardedAd.Show((Reward reward) =>
             {
+#if GameAnalytics
                 if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.RewardReceived, GAAdType.RewardedVideo);
+#endif
                 rewardedCallBack?.Invoke();
                 PrintStatus("Rewarded ad granted a reward: " + reward.Amount);
             });
@@ -673,23 +770,24 @@ public class OmmySDK : MonoBehaviour
                 }
                 else
                 {
-                    adLoadingPanel.SetActive(false);
+                    ShowLoading(false);
                 }
             });
         }
     }
     public void ShowRewardedInterstitialAd(Action rewardSuccess = null, Action rewardFail = null)
     {
+        rewardedInterstitialCallBack = rewardSuccess;
+        rewardFail+=()=>{ShowNoAd(true);};
         if (!myGameIds.preCacheRewardedInterstitial)
         {
-            adLoadingPanel.SetActive(true);
-            rewardSuccess += () => adLoadingPanel.SetActive(false);
+            ShowLoading(true);
+            rewardSuccess += () => ShowLoading(false);
         }
 
 
         const string rewardMsg =
             "Rewarded interstitial ad rewarded the user. Type: {0}, amount: {1}.";
-        rewardedInterstitialCallBack = rewardSuccess;
         if (rewardedInterstitialAd != null && rewardedInterstitialAd.CanShowAd())
         {
             rewardedInterstitialAd.Show((Reward reward) =>
@@ -713,14 +811,16 @@ public class OmmySDK : MonoBehaviour
                         {
                             // TODO: Reward the user.
                             rewardedInterstitialCallBack?.Invoke();
+#if GameAnalytics
                             if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.RewardReceived, GAAdType.RewardedVideo);
+#endif
                             PrintStatus(String.Format(rewardMsg, reward.Type, reward.Amount));
                         });
                     }
                 }
                 else
                 {
-                    adLoadingPanel.SetActive(false);
+                    ShowLoading(false);
                 }
             });
         }
@@ -748,7 +848,9 @@ public class OmmySDK : MonoBehaviour
         }
 
         PrintStatus("Loading the rewarded interstitial ad.");
+#if GameAnalytics
         if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Request, GAAdType.RewardedVideo);
+#endif
         // create our request used to load the ad.
         //   var adRequest = new AdRequest();
         //   adRequest.Keywords.Add("unity-admob-sample");
@@ -761,14 +863,16 @@ public class OmmySDK : MonoBehaviour
                 {
                     PrintStatus("rewardedInterstitial ad failed to load with error : " + error);
                     OnLoad?.Invoke(false);
+#if GameAnalytics
                     if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.FailedShow, GAAdType.RewardedVideo);
+#endif
                     return;
                 }
 
                 PrintStatus("RewardedInterstitial ad loaded. index is ");
                 rewardedInterstitialAd = ad;
                 OnLoad?.Invoke(true);
-#if gameanalytics_admob_enabled
+#if GameAnalytics
                 if (GameAnalytics.Initialized)
                 {
                     OmmyAnalyticsManager.Agent.AdEventILDR(adUnitId, rewardedInterstitialAd);
@@ -777,14 +881,18 @@ public class OmmySDK : MonoBehaviour
 #endif
                 ad.OnAdFullScreenContentOpened += () =>
                {
+#if GameAnalytics
                    if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Show, GAAdType.RewardedVideo);
+#endif
 
                    PrintStatus("RewardedInterstitial ad opening.");
                };
                 ad.OnAdFullScreenContentClosed += () =>
               {
                   PrintStatus("RewardedInterstitial ad closed.");
-                  LoadRewardedInterstitialAd();
+                    ShowLoading(false);
+                  if (myGameIds.preCacheRewardedInterstitial)
+                      LoadRewardedInterstitialAd();
               };
                 ad.OnAdImpressionRecorded += () =>
               {
@@ -792,12 +900,16 @@ public class OmmySDK : MonoBehaviour
               };
                 ad.OnAdClicked += () =>
               {
+#if GameAnalytics
                   if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Clicked, GAAdType.RewardedVideo);
+#endif
                   PrintStatus("RewardedInterstitial ad recorded a click.");
               };
                 ad.OnAdFullScreenContentFailed += (AdError error) =>
               {
+#if GameAnalytics
                   if (GameAnalytics.Initialized) OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.FailedShow, GAAdType.RewardedVideo);
+#endif
 
                   rewardedInterstitialCallBack?.Invoke();
                   PrintStatus("RewardedInterstitial ad failed to show with error: " +
@@ -823,7 +935,8 @@ public class OmmySDK : MonoBehaviour
     #endregion
     public void RemoveAllAds()
     {
-
+        PlayerPrefs.SetInt(nameof(removeAd),1);
+        removeAd=true;
         DestroyAdaptiveBannerAd();
         DestroySquareBannerAd();
         DestroyInterstitialAd();
@@ -832,7 +945,46 @@ public class OmmySDK : MonoBehaviour
 
     }
     #region AD INSPECTOR
-
+    public void ShowNoAd(bool show)
+    {
+        if (!show)
+        {
+            noAdPanel.SetActive(false);
+            return;
+        }
+        if (noAdCoroutine != null)
+        {
+            StopCoroutine(ShowNoAdTask());
+        }
+        noAdCoroutine = StartCoroutine(ShowLoadingTask());
+    }
+    Coroutine noAdCoroutine;
+    IEnumerator ShowNoAdTask()
+    {
+        noAdPanel.SetActive(true);
+        yield return new WaitForSeconds(2);
+        noAdPanel.SetActive(false);
+    }
+    void ShowLoading(bool show)
+    {
+        if (!show)
+        {
+            adLoadingPanel.SetActive(false);
+            return;
+        }
+        if (loadingCoroutine != null)
+        {
+            StopCoroutine(ShowLoadingTask());
+        }
+        loadingCoroutine = StartCoroutine(ShowLoadingTask());
+    }
+    Coroutine loadingCoroutine;
+    IEnumerator ShowLoadingTask()
+    {
+        adLoadingPanel.SetActive(true);
+        yield return new WaitForSeconds(5);
+        adLoadingPanel.SetActive(false);
+    }
     public void OpenAdInspector()
     {
         PrintStatus("Opening Ad inspector.");

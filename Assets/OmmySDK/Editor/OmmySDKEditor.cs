@@ -1,11 +1,72 @@
 using System.Drawing;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 
 [CustomEditor(typeof(OmmySDK))]
-public class CanyonSDKEditor : Editor
+public class OmmySDKEditor : Editor
 {
+    [UnityEditor.MenuItem("Ommy/Fix Errors")]
+    private static void UpdateAdMob()
+        {
+           // GoogleMobileAds.Api.AdRequest
+            var gameAnalytics = new string[] {"GameAnalyticsSDK.GameAnalytics"};
+            if (TypeExists(gameAnalytics))
+            {
+                UpdateDefines("GameAnalytics", true, new BuildTargetGroup[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
+            }
+            else
+            {
+                UpdateDefines("GameAnalytics", false, new BuildTargetGroup[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
+            }
+            var topOnTypes = new string[] { "GoogleMobileAds.Api.AdRequest", "GoogleMobileAds.Api.BannerView", "GoogleMobileAds.Api.InterstitialAd", "GoogleMobileAds.Api.RewardedAd", "GoogleMobileAds.Api.RewardedInterstitialAd" };
+            if (TypeExists(topOnTypes))
+            {
+                UpdateDefines("gameanalytics_admob_enabled", true, new BuildTargetGroup[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
+            }
+            else
+            {
+                UpdateDefines("gameanalytics_admob_enabled", false, new BuildTargetGroup[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
+            }
+        }
+         private static bool TypeExists(params string[] types)
+        {
+            if (types == null || types.Length == 0)
+                return false;
+
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
+            {
+                if (types.Any(type => assembly.GetType(type) != null))
+                    return true;
+            }
+
+            return false;
+        }
+        private static void UpdateDefines(string entry, bool enabled, BuildTargetGroup[] groups)
+        {
+            foreach (var group in groups)
+            {
+                var defines = new List<string>(PlayerSettings.GetScriptingDefineSymbolsForGroup(group).Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries));
+                var edited = false;
+                if (enabled && !defines.Contains(entry))
+                {
+                    defines.Add(entry);
+                    edited = true;
+                }
+                else if (!enabled && defines.Contains(entry))
+                {
+                    defines.Remove(entry);
+                    edited = true;
+                }
+                if (edited) {
+                    PlayerSettings.SetScriptingDefineSymbolsForGroup(group, string.Join(";", defines.ToArray()));
+                }
+            }
+        }
     SerializedProperty adLoadingPanel;
     SerializedProperty showBannerInStartProp;
     SerializedProperty useTestIDsProp;
@@ -107,7 +168,12 @@ public class CanyonSDKEditor : Editor
             switch (i)
             {
                 case 0: // Adoptive Banner
-                    if (!adTypeSelected) break;
+                    if (!adTypeSelected) 
+                    {
+                    adoptiveBannerProp.boolValue=false;
+                    break;
+                    }
+                    adoptiveBannerProp.boolValue=true;
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Adoptive Banner", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(showBannerInStartProp, new GUIContent("Show Banner In Start", "Adoptive Banner"));
@@ -116,7 +182,12 @@ public class CanyonSDKEditor : Editor
                         EditorGUILayout.PropertyField(adoptiveBannerAdIdProp, new GUIContent("Ad ID", "Adoptive Banner"));
                     break;
                 case 1: // Square Banner
-                    if (!adTypeSelected) break;
+                    if (!adTypeSelected)
+                    { 
+                        squareBannerProp.boolValue=false;
+                        break;
+                    }
+                    squareBannerProp.boolValue=true;
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Square Banner", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(squareBannerPosition, new GUIContent("Banner Position", "Square Banner"));
@@ -124,7 +195,12 @@ public class CanyonSDKEditor : Editor
                         EditorGUILayout.PropertyField(squareBannerAdIdProp, new GUIContent("Ad ID", "Square Banner"));
                     break;
                 case 2: // Interstitial
-                    if (!adTypeSelected) break;
+                    if (!adTypeSelected)
+                    { 
+                        interstitialProp.boolValue=false;
+                        break;
+                    }
+                    interstitialProp.boolValue=true;
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Interstitial", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(preCacheInterstitialProp, new GUIContent("Pre-Cache Interstitial", "Interstitial"));
@@ -132,7 +208,12 @@ public class CanyonSDKEditor : Editor
                         EditorGUILayout.PropertyField(interstitialAdIdProp, new GUIContent("Ad ID", "Interstitial"));
                     break;
                 case 3: // Rewarded Video
-                    if (!adTypeSelected) break;
+                    if (!adTypeSelected)
+                    { 
+                        rewardedProp.boolValue=false;
+                        break;
+                    }
+                    rewardedProp.boolValue=true;
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Rewarded Video", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(preCacheRewardedProp, new GUIContent("Pre-Cache Rewarded Video", "Rewarded Video"));
@@ -140,7 +221,12 @@ public class CanyonSDKEditor : Editor
                         EditorGUILayout.PropertyField(rewardedVideoAdIdProp, new GUIContent("Ad ID", "Rewarded Video"));
                     break;
                 case 4: // Rewarded Interstitial
-                    if (!adTypeSelected) break;
+                    if (!adTypeSelected)
+                    { 
+                        rewardedInterstitialProp.boolValue=false;
+                        break;
+                    }
+                    rewardedInterstitialProp.boolValue=true;
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Rewarded Interstitial", EditorStyles.whiteLabel);
                     EditorGUILayout.PropertyField(preCacheRewardedInterstitialProp, new GUIContent("Pre-Cache Rewarded Interstitial", "Rewarded Interstitial"));
