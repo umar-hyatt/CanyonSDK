@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEditor;
 using UnityEngine.SceneManagement;
 using GoogleMobileAds.Api;
 using System.Collections;
@@ -18,7 +17,7 @@ public class OmmySDK : MonoBehaviour
     public InterstitialAd interstitialAd;
     public RewardedAd rewardedAd;
     public RewardedInterstitialAd rewardedInterstitialAd;
-    public GameObject adLoadingPanel,noAdPanel;
+    public GameObject adLoadingPanel, noAdPanel;
     public bool showBannerInStart;
     public bool useTestIDs;
     public bool InternetRequired;
@@ -62,7 +61,7 @@ public class OmmySDK : MonoBehaviour
     {
         InternetCheckerInit();
         InitAdmob();
-        removeAd = PlayerPrefs.GetInt(nameof(removeAd))==1;
+        removeAd = PlayerPrefs.GetInt(nameof(removeAd)) == 1;
         Application.lowMemory += () => Resources.UnloadUnusedAssets();
     }
     public void InternetCheckerInit()
@@ -159,7 +158,7 @@ public class OmmySDK : MonoBehaviour
         // RequestConfiguration requestConfiguration =
         //     new RequestConfiguration.Builder().SetTagForChildDirectedTreatment(tagForChild)
         //     .SetTestDeviceIds(deviceIds).build();
-        MobileAds.RaiseAdEventsOnUnityMainThread=true;
+        MobileAds.RaiseAdEventsOnUnityMainThread = true;
         RequestConfiguration requestConfiguration = new RequestConfiguration();
         requestConfiguration.TagForChildDirectedTreatment = tagForChild;
         requestConfiguration.TestDeviceIds = deviceIds;
@@ -364,65 +363,50 @@ public class OmmySDK : MonoBehaviour
         // Load a banner ad
         squareBannerView.LoadAd(CreateAdRequest());
     }
-    public void ShowSquareBanner()
+    public void ShowSquareBanner(bool showNew=false)
     {
         if (removeAd)
         {
             return;
         }
-        RequestSquareBannerAd(myGameIds.squareBannerAdId, AdSize.MediumRectangle, myGameIds.squareBannerPosition);
-    }
-    public void ShowAdoptiveBanner()
-    {
-
-        if (removeAd)
+        if(squareBannerView!=null&&!squareBannerView.IsDestroyed&&!showNew)
         {
-            return;
-        }
-        var _adSize = AdSize.GetLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
-        RequestAdaptiveBannerAd(myGameIds.adoptiveBannerAdId, _adSize, myGameIds.adoptiveBannerPosition);
-    }
-    public void HideAdaptiveBanner(bool hide)
-    {
-        if (hide)
-        {
-            if (adaptiveBannerView != null)
-            {
-                adaptiveBannerView.Hide();
-            }
+            squareBannerView.Show();
         }
         else
         {
-            if (adaptiveBannerView != null)
-            {
-                adaptiveBannerView.Show();
-            }
-            else
-            {
-                ShowAdoptiveBanner();
-            }
+        RequestSquareBannerAd(myGameIds.squareBannerAdId, AdSize.MediumRectangle, myGameIds.squareBannerPosition);
         }
     }
-    public void HideSquareBanner(bool hide)
+    public void ShowAdoptiveBanner(bool showNew=false)
     {
-        if (hide)
+        if (removeAd)
         {
+            return;
+        }
+        if (adaptiveBannerView!=null&&!adaptiveBannerView.IsDestroyed&&!showNew)
+        {
+            adaptiveBannerView.Show();
+        }
+        else
+        {
+            var _adSize = AdSize.GetLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
+            RequestAdaptiveBannerAd(myGameIds.adoptiveBannerAdId, _adSize, myGameIds.adoptiveBannerPosition);
+        }
+    }
+    public void HideAdaptiveBanner()
+    {
+        if (adaptiveBannerView != null)
+        {
+            adaptiveBannerView.Hide();
+        }
+    }
+    public void HideSquareBanner()
+    {
             if (squareBannerView != null)
             {
                 squareBannerView.Hide();
             }
-        }
-        else
-        {
-            if (squareBannerView != null)
-            {
-                squareBannerView.Show();
-            }
-            else
-            {
-                ShowSquareBanner();
-            }
-        }
     }
     public void DestroyAdaptiveBannerAd()
     {
@@ -502,7 +486,7 @@ public class OmmySDK : MonoBehaviour
                 {
                     OmmyAnalyticsManager.Agent.AdEventILDR(adUnitId, interstitialAd);
                     OmmyAnalyticsManager.Agent.AdEvent(GAAdAction.Loaded, GAAdType.Interstitial);
-                } 
+                }
 #endif
                 ad.OnAdFullScreenContentOpened += () =>
                 {
@@ -547,24 +531,24 @@ public class OmmySDK : MonoBehaviour
                 };
             });
     }
-    public void StartInterstitialAdTimer(Action action=null)
+    public void ShowInterstitialAd(int timeBeforeAd, Action action = null)
     {
-        if(interstitialTimerCorotine!=null)
+        if (interstitialTimerCorotine != null)
         {
             StopCoroutine(interstitialTimerCorotine);
         }
-        interstitialTimerCorotine = StartCoroutine(StartInterstitialAdTimer(action,3));
+        interstitialTimerCorotine = StartCoroutine(StartInterstitialAdTimerDely(action, timeBeforeAd));
     }
     Coroutine interstitialTimerCorotine;
-    IEnumerator StartInterstitialAdTimer(Action action,int time)
+    IEnumerator StartInterstitialAdTimerDely(Action action, int dely)
     {
         ShowLoading(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSecondsRealtime(dely);
         ShowInterstitialAd(action);
     }
     public void ShowInterstitialAd(Action _interstitialCallBack = null)
     {
-        
+
         if (removeAd) return;
 
         if (!myGameIds.preCacheInterstitial)
@@ -714,20 +698,20 @@ public class OmmySDK : MonoBehaviour
                 };
             });
     }
-    public void StartRewardedAdTimer(Action success=null, Action fail=null)
+    public void ShowRewardedAd(int timeBeforeAd, Action success = null, Action fail = null)
     {
-        if(rewardedTimerCorotine!=null)
+        if (rewardedTimerCorotine != null)
         {
             StopCoroutine(rewardedTimerCorotine);
         }
-        rewardedTimerCorotine = StartCoroutine(StartRewardedAdTimer(success,fail,3));
+        rewardedTimerCorotine = StartCoroutine(StartRewardedAdTimer(success, fail, timeBeforeAd));
     }
     Coroutine rewardedTimerCorotine;
-    IEnumerator StartRewardedAdTimer(Action success ,Action fail ,int time)
+    IEnumerator StartRewardedAdTimer(Action success, Action fail, int time)
     {
         ShowLoading(true);
-        yield return new WaitForSeconds(3);
-        ShowRewardedAd(success,fail);
+        yield return new WaitForSecondsRealtime(time);
+        ShowRewardedAd(success, fail);
     }
     public void ShowRewardedAd(Action rewardSuccess = null, Action noVideoAvailable = null)
     {
@@ -778,7 +762,7 @@ public class OmmySDK : MonoBehaviour
     public void ShowRewardedInterstitialAd(Action rewardSuccess = null, Action rewardFail = null)
     {
         rewardedInterstitialCallBack = rewardSuccess;
-        rewardFail+=()=>{ShowNoAd(true);};
+        rewardFail += () => { ShowNoAd(true); };
         if (!myGameIds.preCacheRewardedInterstitial)
         {
             ShowLoading(true);
@@ -890,7 +874,7 @@ public class OmmySDK : MonoBehaviour
                 ad.OnAdFullScreenContentClosed += () =>
               {
                   PrintStatus("RewardedInterstitial ad closed.");
-                    ShowLoading(false);
+                  ShowLoading(false);
                   if (myGameIds.preCacheRewardedInterstitial)
                       LoadRewardedInterstitialAd();
               };
@@ -935,8 +919,8 @@ public class OmmySDK : MonoBehaviour
     #endregion
     public void RemoveAllAds()
     {
-        PlayerPrefs.SetInt(nameof(removeAd),1);
-        removeAd=true;
+        PlayerPrefs.SetInt(nameof(removeAd), 1);
+        removeAd = true;
         DestroyAdaptiveBannerAd();
         DestroySquareBannerAd();
         DestroyInterstitialAd();
@@ -962,7 +946,7 @@ public class OmmySDK : MonoBehaviour
     IEnumerator ShowNoAdTask()
     {
         noAdPanel.SetActive(true);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSecondsRealtime(2);
         noAdPanel.SetActive(false);
     }
     void ShowLoading(bool show)
@@ -982,7 +966,7 @@ public class OmmySDK : MonoBehaviour
     IEnumerator ShowLoadingTask()
     {
         adLoadingPanel.SetActive(true);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSecondsRealtime(5);
         adLoadingPanel.SetActive(false);
     }
     public void OpenAdInspector()

@@ -54,11 +54,11 @@ MonoBehaviour:
   removeAd: 0
   tagForChild: 0
   myGameIds:
-    adaptiveBanner: 0
-    squareBanner: 0
-    interstitial: 0
-    rewarded: 0
-    rewardedInterstitial: 0
+    adaptiveBanner: 1
+    squareBanner: 1
+    interstitial: 1
+    rewarded: 1
+    rewardedInterstitial: 1
     squareBannerPosition: 0
     squareBannerAdId: 
     adoptiveBannerPosition: 1

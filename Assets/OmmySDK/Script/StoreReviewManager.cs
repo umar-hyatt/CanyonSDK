@@ -12,9 +12,12 @@ public class StoreReviewManager : MonoBehaviour
     private ReviewManager _reviewManager;
     private PlayReviewInfo _playReviewInfo;
 #endif
-
-
-
+    public bool showInStart;
+    public int showTimerAfterStart = 30;
+    public void Start()
+    {
+        if(showInStart) Invoke(nameof(RateUs),showTimerAfterStart);
+    }
     public void RateUs()
     {
         if (PlayerPrefs.GetInt("RateUs") == 1)

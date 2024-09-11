@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
@@ -12,10 +11,10 @@ public class TestSDK : MonoBehaviour
         switch (dropdown.value)
         {
             case 0:
-                OmmySDK.Agent.StartRewardedAdTimer();
+                OmmySDK.Agent.ShowRewardedAd(3);
                 break;
             case 1:
-                OmmySDK.Agent.StartInterstitialAdTimer();
+                OmmySDK.Agent.ShowInterstitialAd(3);
                 break;
             case 2:
                 OmmySDK.Agent.ShowRewardedInterstitialAd();
@@ -24,7 +23,7 @@ public class TestSDK : MonoBehaviour
                 OmmySDK.Agent.ShowAdoptiveBanner();
                 break;
             case 4:
-                OmmySDK.Agent.HideAdaptiveBanner(true);
+                OmmySDK.Agent.HideAdaptiveBanner();
                 break;
             case 5:
                 OmmySDK.Agent.DestroyAdaptiveBannerAd();
@@ -33,7 +32,7 @@ public class TestSDK : MonoBehaviour
                 OmmySDK.Agent.ShowSquareBanner();
                 break;
             case 7:
-                OmmySDK.Agent.HideSquareBanner(true);
+                OmmySDK.Agent.HideSquareBanner();
                 break;
             case 8:
                 OmmySDK.Agent.DestroySquareBannerAd();
