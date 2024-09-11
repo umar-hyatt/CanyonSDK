@@ -11,8 +11,8 @@ using UnityEngine.Events;
 
 public class GameAnalyticsManager : MonoBehaviour
 {
- private static GameAnalyticsManager _instance = null;
-    
+    private static GameAnalyticsManager _instance = null;
+
     static public GameAnalyticsManager Agent
     {
         get
@@ -32,56 +32,64 @@ public class GameAnalyticsManager : MonoBehaviour
     }
     void Awake()
     {
-        if(_instance == null)
-        {	
+        if (_instance == null)
+        {
             _instance = this.gameObject.GetComponent<GameAnalyticsManager>();
             DontDestroyOnLoad(this);
         }
         else
         {
-            if(this != _instance)
+            if (this != _instance)
                 Destroy(this.gameObject);
         }
     }
     public static UnityEvent<bool> OnInitialize;
     public static void Initialize()
     {
-        GameAnalytics.onInitialize+=(object s, bool b)=>OnInitialize?.Invoke(b);
+        GameAnalytics.onInitialize += (object s, bool b) => OnInitialize?.Invoke(b);
         GameAnalytics.Initialize();
         GameAnalyticsILRD.SubscribeMaxImpressions();
     }
 
     public static void GameStartAnalytics(int levelNo)
     {
-        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start,"Level_Start",levelNo.ToString(),levelNo);
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Level_Start", levelNo.ToString(), levelNo);
     }
     public static void GameFailAnalytics(int levelNo)
     {
-        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail,"Level_Fail",levelNo.ToString(),levelNo);
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, "Level_Fail", levelNo.ToString(), levelNo);
     }
     public static void GameCompleteAnalytics(int levelNo)
     {
-        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete,"Level_Complete",levelNo.ToString(),levelNo);
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Level_Complete", levelNo.ToString(), levelNo);
     }
-    public static void AdEvent(GAAdAction gAAdAction,GAAdType adType,string network="admob",string _adplacement="undefine")
+    public static void AdEvent(GAAdAction gAAdAction, GAAdType adType, string network = "admob", string _adplacement = "undefine")
     {
-        GameAnalytics.NewAdEvent(gAAdAction,adType,network,_adplacement);
+        GameAnalytics.NewAdEvent(gAAdAction, adType, network, _adplacement);
     }
-    public static void AdEventILDR(string adUnitId,BannerView ad)
+    public static void AdEventILDR(string adUnitId, BannerView ad)
     {
-        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
+#if gameanalytics_admob_enabled
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId, ad);
+#endif
     }
-    public static void AdEventILDR(string adUnitId,InterstitialAd ad)
+    public static void AdEventILDR(string adUnitId, InterstitialAd ad)
     {
-        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
+#if gameanalytics_admob_enabled
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId, ad);
+#endif
     }
-    public static void AdEventILDR(string adUnitId,RewardedAd ad)
+    public static void AdEventILDR(string adUnitId, RewardedAd ad)
     {
-        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
+#if gameanalytics_admob_enabled
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId, ad);
+#endif
     }
-    public static void AdEventILDR(string adUnitId,RewardedInterstitialAd ad)
+    public static void AdEventILDR(string adUnitId, RewardedInterstitialAd ad)
     {
-        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId,ad);
+#if gameanalytics_admob_enabled
+        GameAnalyticsILRD.SubscribeAdMobImpressions(adUnitId, ad);
+#endif
     }
     public void DesignEvent(string eventData)
     {
@@ -91,7 +99,7 @@ public class GameAnalyticsManager : MonoBehaviour
     public static void SetGAIds()
     {
 
-        for ( ; 0< GameAnalytics.SettingsGA.Platforms.Count; )
+        for (; 0 < GameAnalytics.SettingsGA.Platforms.Count;)
         {
             GameAnalytics.SettingsGA.RemovePlatformAtIndex(0);
         }
@@ -101,10 +109,10 @@ public class GameAnalyticsManager : MonoBehaviour
 #elif UNITY_IOS
         GameAnalytics.SettingsGA.AddPlatform(RuntimePlatform.IPhonePlayer);
 #endif
- 
-        GameAnalytics.SettingsGA.UpdateGameKey(0,OmmyAnalyticsManager.Agent.gameKey);
-        GameAnalytics.SettingsGA.UpdateSecretKey(0,OmmyAnalyticsManager.Agent.secretKey);
-        
+
+        GameAnalytics.SettingsGA.UpdateGameKey(0, OmmyAnalyticsManager.Agent.gameKey);
+        GameAnalytics.SettingsGA.UpdateSecretKey(0, OmmyAnalyticsManager.Agent.secretKey);
+
         GameAnalytics.SettingsGA.SubmitFpsAverage = true;
         GameAnalytics.SettingsGA.SubmitFpsCritical = true;
         GameAnalytics.SettingsGA.NativeErrorReporting = true;
@@ -113,7 +121,7 @@ public class GameAnalyticsManager : MonoBehaviour
         GameAnalytics.SettingsGA.InfoLogEditor = true;
         GameAnalytics.SettingsGA.UsePlayerSettingsBuildNumber = true;
         GameAnalytics.SettingsGA.FpsCriticalThreshold = 30;
-            
+
     }
 
     #endregion

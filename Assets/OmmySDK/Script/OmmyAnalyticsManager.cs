@@ -65,7 +65,10 @@ public class OmmyAnalyticsManager : MonoBehaviour
         //GameAnalyticsILRD.SubscribeAdMobImpressions();
         //Debug.Log(":* GameAnalytics Initialized!");
     }
-
+    public void CustomEvent(string eventName, string Value)
+    {
+        FirebaseManager.LogEvent("Custom",eventName,Value);
+    }
     public void GameStartAnalytics(int levelNo)
     {
         FirebaseManager.LogLevelStartEvent(levelNo);

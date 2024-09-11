@@ -241,10 +241,10 @@ PlayerSettings:
   templateDefaultScene: Assets/Scenes/SampleScene.unity
   useCustomMainManifest: 0
   useCustomLauncherManifest: 0
-  useCustomMainGradleTemplate: 0
+  useCustomMainGradleTemplate: 1
   useCustomLauncherGradleManifest: 0
   useCustomBaseGradleTemplate: 0
-  useCustomGradlePropertiesTemplate: 0
+  useCustomGradlePropertiesTemplate: 1
   useCustomProguardFile: 0
   AndroidTargetArchitectures: 3
   AndroidTargetDevices: 0
@@ -710,7 +710,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: gameanalytics_admob_enabled;GameAnalytics
+    Android: GameAnalytics;gameanalytics_admob_enabled
     iPhone: gameanalytics_admob_enabled;gameanalytics_admob_enableds;GameAnalyticsSDK.GameAnalytics;GameAnalyticsSDK;GameAnalytics
   additionalCompilerArguments: {}
   platformArchitecture: {}
