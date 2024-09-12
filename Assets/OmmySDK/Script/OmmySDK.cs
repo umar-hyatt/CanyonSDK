@@ -378,6 +378,22 @@ public class OmmySDK : MonoBehaviour
         RequestSquareBannerAd(myGameIds.squareBannerAdId, AdSize.MediumRectangle, myGameIds.squareBannerPosition);
         }
     }
+    public void ShowSquareBanner(AdPosition adPosition)
+    {
+        if (removeAd)
+        {
+            return;
+        }
+        if(squareBannerView!=null&&!squareBannerView.IsDestroyed)
+        {
+            squareBannerView.SetPosition(adPosition);
+            squareBannerView.Show();
+        }
+        else
+        {
+            RequestSquareBannerAd(myGameIds.squareBannerAdId, AdSize.MediumRectangle, adPosition);
+        }
+    }
     public void ShowAdoptiveBanner(bool showNew=false)
     {
         if (removeAd)
@@ -392,6 +408,23 @@ public class OmmySDK : MonoBehaviour
         {
             var _adSize = AdSize.GetLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
             RequestAdaptiveBannerAd(myGameIds.adoptiveBannerAdId, _adSize, myGameIds.adoptiveBannerPosition);
+        }
+    }
+    public void ShowAdoptiveBanner(AdPosition adPosition)
+    {
+        if (removeAd)
+        {
+            return;
+        }
+        if (adaptiveBannerView!=null&&!adaptiveBannerView.IsDestroyed)
+        {
+            adaptiveBannerView.SetPosition(adPosition);
+            adaptiveBannerView.Show();
+        }
+        else
+        {
+            var _adSize = AdSize.GetLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
+            RequestAdaptiveBannerAd(myGameIds.adoptiveBannerAdId, _adSize, adPosition);
         }
     }
     public void HideAdaptiveBanner()
@@ -1005,7 +1038,6 @@ public class IDs
     public bool adaptiveBanner = true;
     public bool squareBanner = true;
     public bool interstitial = true, rewarded = true, rewardedInterstitial = true;
-    [Header("Set IDs High, Medium, All Prices")]
     public AdPosition squareBannerPosition;
     public string squareBannerAdId;
     public AdPosition adoptiveBannerPosition;

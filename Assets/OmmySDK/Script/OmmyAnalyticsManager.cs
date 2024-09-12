@@ -69,6 +69,10 @@ public class OmmyAnalyticsManager : MonoBehaviour
     {
         FirebaseManager.LogEvent("Custom",eventName,Value);
     }
+    public void CustomEvent(string Value)
+    {
+        FirebaseManager.LogEvent(Value);
+    }
     public void GameStartAnalytics(int levelNo)
     {
         FirebaseManager.LogLevelStartEvent(levelNo);

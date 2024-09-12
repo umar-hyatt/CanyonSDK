@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/OmmySDK/Scenes/AdSplash.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/OmmySDK/Scenes/SDKDemo.unity
+    guid: fb05164e687a3824187db0a5666f13b3
+  - enabled: 0
     path: Assets/OmmySDK/Scenes/game.unity
     guid: fdfa03f2a35b5ee4eb4bcb5da673a0ac
   m_configObjects: {}

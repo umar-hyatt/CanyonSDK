@@ -139,8 +139,9 @@ public class OmmySDKEditor : Editor
         serializedObject.Update();
         GUIStyle gUIStyle = new GUIStyle();
         gUIStyle.alignment = TextAnchor.UpperLeft;
+        gUIStyle.fixedHeight=50;
         gUIStyle.fontSize = 10;
-        EditorGUILayout.LabelField("Ommy SDK v2024.2.5", EditorStyles.centeredGreyMiniLabel);
+        EditorGUILayout.LabelField("Ommy SDK v2024.9.12", EditorStyles.centeredGreyMiniLabel);
         EditorGUILayout.PropertyField(adLoadingPanel);
         EditorGUILayout.PropertyField(loadNextSceneProp);
         EditorGUILayout.PropertyField(removeAdProp);
@@ -247,8 +248,26 @@ public class OmmySDKEditor : Editor
 
         EditorGUILayout.PropertyField(Links);
         serializedObject.ApplyModifiedProperties();
+        // add dropdown here
+        showDetails = EditorGUILayout.Foldout(showDetails, "How to use");
+        if (showDetails)
+        {
+        GUILayout.Label("Banner", EditorStyles.boldLabel);
+        GUILayout.Label("OmmySDK.Agent.ShowBanner() for show banner\nOmmySDK.Agent.ShowBanner(true) for show with new banner request\nOmmySDK.Agent.ShowBanner(AdPosition.Bottom) for show banner and override position\nOmmySDK.Agent.HideBanner() for hide banner\nOmmySDK.Agent.DestroyBanner() for destroy banner",EditorStyles.textArea);
+        GUILayout.Label("Interstitial", EditorStyles.boldLabel);
+        GUILayout.Label("OmmySDK.Agent.ShowInterstitialAd() for show interstitial ad\nOmmySDK.Agent.ShowInterstitialAd(successAction) for show interstitial ad with success callback\nOmmySDK.Agent.ShowInterstitialAd(delyTime, successCallback) for show interstitial ad after dely and success callback",EditorStyles.textArea);
+        GUILayout.Label("Rewarded", EditorStyles.boldLabel);
+        GUILayout.Label("OmmySDK.Agent.ShowRewardedAd() for show rewarded ad\nOmmySDK.Agent.ShowRewardedAd(successAction, failAction) for show rewarded ad with success and fail callback\nOmmySDK.Agent.ShowRewardedAd(delyTime, successCallback,failCallback) for show rewarded ad after dely, success and fail callback",EditorStyles.textArea);
+        GUILayout.Label("Rewarded Interstitial", EditorStyles.boldLabel);
+        GUILayout.Label("OmmySDK.Agent.ShowRewardedInterstitialAd() for show ewarded interstitial ad\nOmmySDK.Agent.ShowRewardedInterstitialAd(successAction, failAction) for show rewarded interstitial ad with success and fail callback\nOmmySDK.Agent.ShowRewardedInterstitialAd(delyTime, successCallback,failCallback) for show rewarded interstitial ad after dely, success and fail callback",EditorStyles.textArea);
+        GUILayout.Label("Plugins", EditorStyles.boldLabel);
+        // end drop down here
+        //GUILayout.Label("OmmySDK.Agent.ShowAdoptiveBanner() for show banner\nOmmySDK.Agent.ShowAdoptiveBanner(true) for show with new banner request\n-OmmySDK.Agent.ShowAdoptiveBanner(AdPosition.Bottom) for show banner and override position\nOmmySDK.Agent.HideAdoptiveBanner() for hide banner\nOmmySDK.Agent.DestroySquareBanner() for destroy banner;",EditorStyles.textArea);
+        GUILayout.Label("-Google mobile ads 9.0.2\n-Firebase analytics 12.2.1\n-Firebase crashlytics 12.2.1\n-Google play app update 1.8.2\n-Google play review 1.8.2",EditorStyles.textArea);
+        //EditorGUILayout.LabelField("google mobile ads 9.0.2\nfirebase analytics 12.2.1\nfirebase crashlytics 12.2.1\nin app update 1.8.2\nin app review 1.8.2", gUIStyle);
+        }
     }
-
+    bool showDetails;
     // Helper method to get the bitmask of the currently selected ad types
     private int GetAdTypesMask()
     {

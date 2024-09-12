@@ -52,6 +52,10 @@ public class FirebaseManager : MonoBehaviour
     {
         FirebaseAnalytics.LogEvent(eventName, parameterName, parameterValue);
     }
+    public static void LogEvent(string parameterValue)
+    {
+        FirebaseAnalytics.LogEvent(parameterValue);
+    }
 
     // Log a non-fatal error to Firebase Crashlytics
     public void LogError(string message)
